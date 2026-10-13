@@ -1,0 +1,764 @@
+{
+  "_doc": "Delayed consequence rules (butterfly effect). Evaluated at the convergence point (end) of each segment in [earliest, latest], in ascending priority. Each fires at most once per run. `reads` documents the causal seeds for reviewers and is cross-checked by tests.",
+  "rules": [
+    {
+      "id": "R_SUSPICION_SWEEP",
+      "description": {
+        "vi": "Người chơi bị để mắt (SUSPICION ≥ 40) và đang giữ điện thoại: một cuộc khám đồ đêm lấy mất nó."
+      },
+      "reads": {
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "stat",
+            "stat": "suspicion",
+            "cmp": ">=",
+            "value": 40
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "player"
+          }
+        ]
+      },
+      "earliest": 2,
+      "latest": 17,
+      "once": true,
+      "priority": 0,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "thach"
+        },
+        {
+          "type": "stat",
+          "stat": "suspicion",
+          "delta": 20
+        },
+        {
+          "type": "witnessTag",
+          "tag": "T_W_PHONE_CONFISCATED"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "R_INTERROGATION_D4",
+      "description": {
+        "vi": "Tin báo của Linh (D3 đêm) → người mới bị gọi lên thẩm vấn sáng D4. Hậu quả trễ của quan hệ với Linh ngày 1–3."
+      },
+      "reads": {
+        "flags": [
+          "thach.hasCaptiveTip"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "flag",
+            "flag": "thach.hasCaptiveTip",
+            "equals": true
+          }
+        ]
+      },
+      "earliest": 8,
+      "latest": 8,
+      "once": true,
+      "priority": 10,
+      "effects": [
+        {
+          "type": "schedule",
+          "eventId": "EV_C_D4M_INTERROGATION",
+          "at": 9
+        },
+        {
+          "type": "stat",
+          "stat": "suspicion",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "R_DUC_CONFIDES_LATE",
+      "description": {
+        "vi": "Captive che cho Đức lúc khám xét nhưng chưa được em tâm sự đêm D3 → em tìm đến sáng D4."
+      },
+      "reads": {
+        "tags": [
+          "T_C_COVERED_DUC_SEARCH"
+        ],
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "trust",
+            "npc": "duc",
+            "cmp": ">=",
+            "value": 2
+          },
+          {
+            "op": "tag",
+            "tag": "T_C_COVERED_DUC_SEARCH"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "eventFired",
+              "eventId": "EV_C_D3N_DUC_CONFESSION"
+            }
+          },
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          }
+        ]
+      },
+      "earliest": 9,
+      "latest": 9,
+      "once": true,
+      "priority": 10,
+      "effects": [
+        {
+          "type": "witnessTag",
+          "tag": "T_W_DUC_CONFIDED_LATE"
+        },
+        {
+          "type": "belief",
+          "agent": "player",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "duc"
+        },
+        {
+          "type": "belief",
+          "agent": "player",
+          "factId": "F_PHONE_TAKEN_BY_DUC",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "duc"
+        },
+        {
+          "type": "belief",
+          "agent": "player",
+          "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "duc"
+        }
+      ]
+    },
+    {
+      "id": "R_MAI_EXPOSED",
+      "description": {
+        "vi": "Thạch biết điện thoại là của Mai → Mai bị cách ly, Thạch xác nhận kẻ rò rỉ."
+      },
+      "reads": {
+        "flags": [
+          "mai.exposed"
+        ]
+      },
+      "when": {
+        "op": "flag",
+        "flag": "mai.exposed",
+        "equals": true
+      },
+      "earliest": 9,
+      "latest": 20,
+      "once": true,
+      "priority": 5,
+      "effects": [
+        {
+          "type": "npcStatus",
+          "npc": "mai",
+          "status": "isolated"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_MAI_LEAKING",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_OWNER_MAI",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "R_THACH_RAID_CEILING",
+      "description": {
+        "vi": "Thạch biết chỗ giấu (qua Linh, hoặc qua Đức bị khai) → cho lục trần, lấy điện thoại, quy Đức là kẻ rò rỉ. Sai người, đúng chỗ."
+      },
+      "reads": {
+        "facts": [
+          "F_PHONE_HIDDEN_DORM_CEILING"
+        ],
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "npcBelieves",
+            "npc": "thach",
+            "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+            "minStatus": "RUMOR",
+            "believedValue": true
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          },
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          }
+        ]
+      },
+      "earliest": 11,
+      "latest": 12,
+      "once": true,
+      "priority": 10,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "thach"
+        },
+        {
+          "type": "flag",
+          "flag": "duc.scapegoated",
+          "value": true
+        },
+        {
+          "type": "npcStatus",
+          "npc": "duc",
+          "status": "isolated"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_TAKEN_BY_DUC",
+          "status": "OBSERVED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_DUC_IS_THE_LEAK",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "self",
+          "misinformation": true
+        },
+        {
+          "type": "schedule",
+          "eventId": "EV_S_D5A_DUC_TAKEN",
+          "at": 13
+        }
+      ]
+    },
+    {
+      "id": "R_THACH_RECOVERS_PHONE_QUIET",
+      "description": {
+        "vi": "Đức đã bị cách ly và khai chỗ giấu → Thạch lấy điện thoại không cần sự kiện."
+      },
+      "reads": {
+        "facts": [
+          "F_PHONE_HIDDEN_DORM_CEILING"
+        ],
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "npcBelieves",
+            "npc": "thach",
+            "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+            "minStatus": "RUMOR",
+            "believedValue": true
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "npcStatus",
+              "npc": "duc",
+              "is": "present"
+            }
+          }
+        ]
+      },
+      "earliest": 9,
+      "latest": 12,
+      "once": true,
+      "priority": 11,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "thach"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "R_VU_CEILING_CHECK",
+      "description": {
+        "vi": "Kiểm tra trần định kỳ sáng D5: nếu điện thoại còn đó, Vũ tìm thấy và giữ im. ECHO của vertical slice."
+      },
+      "reads": {
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "when": {
+        "op": "flag",
+        "flag": "phone.location",
+        "equals": "dorm_ceiling"
+      },
+      "earliest": 12,
+      "latest": 12,
+      "once": true,
+      "priority": 20,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "vu_locker"
+        },
+        {
+          "type": "belief",
+          "agent": "vu",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "vu",
+          "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "vu",
+          "factId": "F_PHONE_TAKEN_BY_DUC",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "schedule",
+          "eventId": "EV_S_D5A_PHONE_FOUND_BY_VU",
+          "at": 13
+        }
+      ]
+    },
+    {
+      "id": "R_MAI_DEAL",
+      "description": {
+        "vi": "Operator đã hỏi Mai 'chị mất gì' (D3) và chưa tố cô → Mai tìm đến đề nghị (D5 chiều)."
+      },
+      "reads": {
+        "tags": [
+          "T_O_CONFRONTED_MAI",
+          "T_O_POINTED_AT_MAI"
+        ],
+        "flags": [
+          "mai.exposed"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "operator"
+          },
+          {
+            "op": "tag",
+            "tag": "T_O_CONFRONTED_MAI"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "tag",
+              "tag": "T_O_POINTED_AT_MAI"
+            }
+          },
+          {
+            "op": "flag",
+            "flag": "mai.exposed",
+            "equals": false
+          },
+          {
+            "op": "npcStatus",
+            "npc": "mai",
+            "is": "present"
+          }
+        ]
+      },
+      "earliest": 12,
+      "latest": 12,
+      "once": true,
+      "priority": 30,
+      "effects": [
+        {
+          "type": "schedule",
+          "eventId": "EV_O_D5A_MAI_DEAL",
+          "at": 13
+        }
+      ]
+    },
+    {
+      "id": "R_DUC_CALLED_HOME",
+      "description": {
+        "vi": "Vũ thấy Đức cầm điện thoại ngoài sân và không báo. Anh ta nhớ ai đã đưa nó."
+      },
+      "reads": {
+        "flags": [
+          "duc.calledHome"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "flag",
+            "flag": "duc.calledHome",
+            "equals": true
+          }
+        ]
+      },
+      "earliest": 13,
+      "latest": 14,
+      "once": true,
+      "priority": 30,
+      "effects": [
+        {
+          "type": "trust",
+          "npc": "vu",
+          "delta": 1
+        },
+        {
+          "type": "npcTag",
+          "npc": "vu",
+          "tag": "T_C_GAVE_DUC_CALL",
+          "via": "witness"
+        }
+      ]
+    },
+    {
+      "id": "R_THACH_DEAL_OFFER",
+      "description": {
+        "vi": "Captive tuân thủ cao (quota ≥ 3) hoặc bị để mắt nặng (SUSPICION ≥ 70) → Thạch đề nghị 'lên team' sáng D6. Mầm của ending Đảo vai."
+      },
+      "reads": {
+        "flags": [
+          "quota.score",
+          "captive_pc.isolated"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "flag",
+            "flag": "captive_pc.isolated",
+            "equals": false
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "op": "flagCmp",
+                "flag": "quota.score",
+                "cmp": ">=",
+                "value": 3
+              },
+              {
+                "op": "stat",
+                "stat": "suspicion",
+                "cmp": ">=",
+                "value": 70
+              }
+            ]
+          }
+        ]
+      },
+      "earliest": 14,
+      "latest": 14,
+      "once": true,
+      "priority": 30,
+      "effects": [
+        {
+          "type": "schedule",
+          "eventId": "EV_C_D6M_THACH_DEAL",
+          "at": 15
+        }
+      ]
+    },
+    {
+      "id": "R_OPERATOR_MARKED",
+      "description": {
+        "vi": "Operator bị tổ chức đánh dấu khi SUSPICION ≥ 90."
+      },
+      "reads": {
+        "flags": [
+          "operator.marked"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "operator"
+          },
+          {
+            "op": "stat",
+            "stat": "suspicion",
+            "cmp": ">=",
+            "value": 90
+          },
+          {
+            "op": "flag",
+            "flag": "operator.marked",
+            "equals": false
+          }
+        ]
+      },
+      "earliest": 5,
+      "latest": 17,
+      "once": true,
+      "priority": 1,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "operator.marked",
+          "value": true
+        },
+        {
+          "type": "witnessTag",
+          "tag": "T_W_MARKED"
+        }
+      ]
+    },
+    {
+      "id": "R_LINH_PULLED_OUT",
+      "description": {
+        "vi": "Linh bị ký túc vạch mặt → Thạch rút cô khỏi ký túc để 'bảo vệ tài sản'."
+      },
+      "reads": {
+        "tags": [
+          "T_C_EXPOSED_LINH"
+        ]
+      },
+      "when": {
+        "op": "tag",
+        "tag": "T_C_EXPOSED_LINH"
+      },
+      "earliest": 16,
+      "latest": 17,
+      "once": true,
+      "priority": 40,
+      "effects": [
+        {
+          "type": "npcStatus",
+          "npc": "linh",
+          "status": "isolated"
+        }
+      ]
+    },
+    {
+      "id": "R_EXPOSURE_RAID",
+      "description": {
+        "vi": "Bằng chứng ra ngoài trước đêm 6 → truy quét sáng ngày 7."
+      },
+      "reads": {
+        "flags": [
+          "evidence.outside"
+        ]
+      },
+      "when": {
+        "op": "flag",
+        "flag": "evidence.outside",
+        "equals": true
+      },
+      "earliest": 17,
+      "latest": 17,
+      "once": true,
+      "priority": 1,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "raid.scheduled",
+          "value": true
+        },
+        {
+          "type": "schedule",
+          "eventId": "EV_S_D7M_RAID",
+          "at": 18
+        }
+      ]
+    },
+    {
+      "id": "R_TRANSFER_PREP",
+      "description": {
+        "vi": "Không có truy quét → chuyển giao diễn ra như kế hoạch."
+      },
+      "reads": {
+        "flags": [
+          "raid.scheduled"
+        ]
+      },
+      "when": {
+        "op": "flag",
+        "flag": "raid.scheduled",
+        "equals": false
+      },
+      "earliest": 17,
+      "latest": 17,
+      "once": true,
+      "priority": 2,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "transfer.prepStarted",
+          "value": true
+        },
+        {
+          "type": "schedule",
+          "eventId": "EV_S_D7M_LOADING_PREP",
+          "at": 18
+        },
+        {
+          "type": "schedule",
+          "eventId": "EV_S_D7A_LOADING",
+          "at": 19
+        }
+      ]
+    },
+    {
+      "id": "R_CALLED_UP",
+      "description": {
+        "vi": "Operator bị đánh dấu và không có truy quét → bị gọi lên sáng D7."
+      },
+      "reads": {
+        "flags": [
+          "operator.marked",
+          "raid.scheduled"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "operator"
+          },
+          {
+            "op": "flag",
+            "flag": "operator.marked",
+            "equals": true
+          },
+          {
+            "op": "flag",
+            "flag": "raid.scheduled",
+            "equals": false
+          }
+        ]
+      },
+      "earliest": 17,
+      "latest": 17,
+      "once": true,
+      "priority": 3,
+      "effects": [
+        {
+          "type": "schedule",
+          "eventId": "EV_O_D7M_CALLED_UP",
+          "at": 18
+        }
+      ]
+    }
+  ]
+}

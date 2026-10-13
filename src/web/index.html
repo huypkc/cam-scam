@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE COMPOUND</title>
+<style>
+  :root { --bg: #14151a; --panel: #1d1f26; --ink: #e8e6e0; --dim: #9a9890; --line: #2e313b; --accent: #d9a441; --warn: #c8553d; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 Georgia, 'Times New Roman', serif; }
+  header { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; }
+  header h1 { font-size: 15px; letter-spacing: .18em; margin: 0; color: var(--accent); }
+  header .meta { color: var(--dim); font-size: 14px; }
+  header .stat b { color: var(--ink); }
+  header .stat.l3 b { color: var(--warn); }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 0; max-width: 1180px; margin: 0 auto; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } aside { border-left: 0; border-top: 1px solid var(--line); } }
+  section#stage { padding: 20px 16px 40px; }
+  aside { padding: 16px; border-left: 1px solid var(--line); font-size: 14px; color: var(--dim); }
+  aside h3 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; margin: 16px 0 6px; color: var(--accent); }
+  .time { color: var(--dim); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+  .summary { font-size: 19px; margin: 8px 0 12px; }
+  .obs { margin: 6px 0; padding-left: 14px; border-left: 2px solid var(--line); color: #cfccc4; }
+  .obs.uncertain { font-style: italic; border-left-color: var(--accent); }
+  .obs.uncertain::after { content: ' (bạn không chắc mình thấy đúng)'; color: var(--dim); font-size: 13px; }
+  .choices { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+  button { font: inherit; text-align: left; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.ghost { color: var(--dim); }
+  .small { font-size: 13px; }
+  .journal { list-style: none; padding: 0; margin: 0; }
+  .journal li { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px dotted var(--line); }
+  .journal .t { color: var(--accent); font-size: 12px; letter-spacing: .08em; }
+  .journal .c { color: var(--ink); }
+  .belief { margin: 4px 0; }
+  .belief .k { color: var(--accent); font-size: 12px; }
+  .epilogue h2 { font-size: 26px; letter-spacing: .1em; color: var(--accent); margin: 0 0 4px; }
+  .card { margin: 12px 0; padding: 10px 12px; background: var(--panel); border-radius: 6px; }
+  .card b { color: var(--accent); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .err { color: var(--warn); }
+  #role button { font-size: 18px; padding: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>THE COMPOUND</h1>
+  <span class="meta" id="hdr-time"></span>
+  <span class="meta" id="hdr-role"></span>
+  <span class="meta stat" id="hdr-susp"></span>
+  <span class="meta stat" id="hdr-stress"></span>
+</header>
+<main>
+  <section id="stage"><p class="small">Đang tải nội dung…</p></section>
+  <aside id="side"></aside>
+</main>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>

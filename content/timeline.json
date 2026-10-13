@@ -1,0 +1,6688 @@
+{
+  "_doc": "Seven-day canonical timeline. `background` = what happens in the world in EVERY run (no player input). `events` = what the player can experience; forced/optional events sit in fixed slots, scheduled events are placed by rules or consequences. Segment index = (day-1)*3 + {morning:0, afternoon:1, night:2}. MVP: `defaultChoice` (string or per-role map) is the most passive option, used when the world runs without a player (audit F-12). `order` sorts forced and scheduled events sharing a segment (audit Q2/F-05).",
+  "background": [
+    {
+      "id": "BG_D1M_ARRIVAL",
+      "at": {
+        "day": 1,
+        "segment": "morning"
+      },
+      "summary": {
+        "vi": "Lô người mới (gồm PC Captive) được đưa vào tầng. Thạch nhận danh sách và chuyển một bản cho Linh."
+      },
+      "facts": [],
+      "effects": []
+    },
+    {
+      "id": "BG_D2M_TRUCK_INVENTORY",
+      "at": {
+        "day": 2,
+        "segment": "morning"
+      },
+      "summary": {
+        "vi": "Xe tải đến; hai người lạ đi đếm giường với Mai. Phiếu 'kiểm kê tài sản' được lập."
+      },
+      "facts": [
+        "F_TRUCK_DAY2_WAS_INVENTORY"
+      ],
+      "effects": [
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_TRUCK_DAY2_WAS_INVENTORY",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "mai",
+          "factId": "F_TRUCK_DAY2_WAS_INVENTORY",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "BG_D2A_DUC_TELLS_LINH",
+      "at": {
+        "day": 2,
+        "segment": "afternoon"
+      },
+      "summary": {
+        "vi": "Đức kể với Linh rằng em chỉ muốn gọi cho mẹ."
+      },
+      "facts": [
+        "F_DUC_WANTS_TO_CALL_MOTHER"
+      ],
+      "effects": [
+        {
+          "type": "belief",
+          "agent": "linh",
+          "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "duc"
+        }
+      ]
+    },
+    {
+      "id": "BG_D2N_BOSS_CALL",
+      "at": {
+        "day": 2,
+        "segment": "night"
+      },
+      "summary": {
+        "vi": "Ông Chủ gọi Thạch: 'Có người trong tầng của anh nói chuyện với bên ngoài.'"
+      },
+      "facts": [
+        "F_BOSS_KNOWS_LEAK"
+      ],
+      "effects": [
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_BOSS_KNOWS_LEAK",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "BG_D3M_THEFT",
+      "at": {
+        "day": 3,
+        "segment": "morning"
+      },
+      "summary": {
+        "vi": "Đức mang sổ lên phòng hành chính, lấy điện thoại trong ngăn bàn Mai, giấu vào khe trần nhà vệ sinh ký túc. Linh thấy em bỏ gì đó vào túi ở hành lang. Mai phát hiện mất. Thạch, đang săn kẻ rò rỉ, bịa cớ 'mất điện thoại văn phòng' để khám xét. Không khí ký túc căng lên sau khi Đức quay về."
+      },
+      "facts": [
+        "F_PHONE_TAKEN_BY_DUC",
+        "F_PHONE_HIDDEN_DORM_CEILING",
+        "F_LINH_SAW_DUC_TAKE_PHONE",
+        "F_SEARCH_IS_LEAK_HUNT"
+      ],
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "dorm_ceiling"
+        },
+        {
+          "type": "belief",
+          "agent": "duc",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "duc",
+          "factId": "F_PHONE_TAKEN_BY_DUC",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "duc",
+          "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "linh",
+          "factId": "F_LINH_SAW_DUC_TAKE_PHONE",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "linh",
+          "factId": "F_PHONE_TAKEN_BY_DUC",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_SEARCH_IS_LEAK_HUNT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_SEARCH_IS_ABOUT_STOLEN_PHONE",
+          "status": "CONFIRMED",
+          "believedValue": false,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "duc",
+          "factId": "F_PHONE_OWNER_MAI",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "belief",
+          "agent": "linh",
+          "factId": "F_PHONE_TAKEN_BY_CAPTIVE_PC",
+          "status": "OBSERVED",
+          "believedValue": false,
+          "source": "self",
+          "_doc": "Linh biết người mới KHÔNG lấy; cô vẫn sẽ báo tên họ."
+        }
+      ],
+      "playerEffects": {
+        "captive": [
+          {
+            "type": "stat",
+            "stat": "stress",
+            "delta": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "BG_D3A_SEARCH",
+      "at": {
+        "day": 3,
+        "segment": "afternoon"
+      },
+      "summary": {
+        "vi": "Khám xét ký túc theo lệnh Thạch. Vũ lật từng giường; thứ duy nhất tìm thấy là lá thư gửi mẹ của Đức. Ở phòng hành chính, Mai hiểu: nếu Thạch khám ký túc thì thứ cô mất đang nằm ở đó — và cô phải tới trước khi người khác tìm ra."
+      },
+      "facts": [
+        "F_SEARCH_IS_LEAK_HUNT",
+        "F_DUC_WANTS_TO_CALL_MOTHER"
+      ],
+      "effects": [
+        {
+          "type": "belief",
+          "agent": "mai",
+          "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "self",
+          "_doc": "Inference, not knowledge: \"it is somewhere in the dorm\". Her search action resolves against the real location."
+        },
+        {
+          "type": "belief",
+          "agent": "vu",
+          "factId": "F_SEARCH_IS_ABOUT_STOLEN_PHONE",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "thach",
+          "misinformation": true,
+          "_doc": "Vũ believes the cover story Thạch gave him."
+        },
+        {
+          "type": "belief",
+          "agent": "vu",
+          "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+          "status": "OBSERVED",
+          "believedValue": true,
+          "source": "self",
+          "_doc": "He read the letter."
+        }
+      ]
+    },
+    {
+      "id": "BG_D4M_QUOTA_RAISED",
+      "at": {
+        "day": 4,
+        "segment": "morning"
+      },
+      "summary": {
+        "vi": "Trừng phạt tập thể: chỉ tiêu cả tầng tăng vì 'chưa tìm ra điện thoại'."
+      },
+      "facts": [],
+      "effects": [],
+      "playerEffects": {
+        "captive": [
+          {
+            "type": "stat",
+            "stat": "stress",
+            "delta": 10
+          }
+        ],
+        "operator": [
+          {
+            "type": "stat",
+            "stat": "stress",
+            "delta": 5
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "EV_S_D1M_INTAKE",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 1,
+        "segment": "morning"
+      },
+      "location": "floor",
+      "summary": {
+        "vi": "Nhập trại. Captive bị thu điện thoại và ký 'hợp đồng'. Operator được giao lô mới. Thạch: 'Tuần này quan trọng. Làm tốt thì sau tuần này tính tiếp.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "text": {
+            "vi": "Thạch nói 'sau tuần này' hai lần. Không ai khác để ý."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_HEARD_AFTER_THIS_WEEK"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "c_sign",
+          "label": {
+            "vi": "Ký không nói gì"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "tag",
+              "tag": "T_C_SIGNED_QUIETLY"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_C_SIGNED_QUIETLY",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "c_protest",
+          "label": {
+            "vi": "Phản đối: 'Đây không phải việc tôi được hứa'"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "tag",
+              "tag": "T_C_PROTESTED_INTAKE"
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_C_PROTESTED_INTAKE",
+              "via": "witness"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": -1
+            }
+          ]
+        },
+        {
+          "id": "o_harsh",
+          "label": {
+            "vi": "Nói với lô mới đúng giọng Thạch muốn"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_HARSH_INTAKE"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_O_HARSH_INTAKE",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "o_plain",
+          "label": {
+            "vi": "Nói ngắn, không dọa"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_PLAIN_INTAKE"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": {
+        "captive": "c_sign",
+        "operator": "o_plain"
+      }
+    },
+    {
+      "id": "EV_C_D1A_LINH_APPROACH",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 1,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "summary": {
+        "vi": "Linh đến bắt chuyện, gọi đúng tên bạn trước khi bạn kịp giới thiệu."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Cô ấy biết tên bạn. Danh sách chỉ Thạch có."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 10
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "open",
+          "label": {
+            "vi": "Mở lòng, kể về nhà"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_OPENED_TO_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        },
+        {
+          "id": "guarded",
+          "label": {
+            "vi": "Lịch sự nhưng giữ khoảng cách"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_GUARDED_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "ask_name",
+          "label": {
+            "vi": "Hỏi thẳng: 'Sao chị biết tên em?'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_QUESTIONED_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_QUESTIONED_LINH",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "guarded"
+    },
+    {
+      "id": "EV_O_D1A_MAI_PAPERWORK",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 1,
+        "segment": "afternoon"
+      },
+      "location": "admin",
+      "summary": {
+        "vi": "Mai đưa xấp hợp đồng của lô mới. Trong xấp có một bản mang tên bạn, con số nợ vừa được cập nhật."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Tên bạn nằm trong sổ nợ, cùng cột với người mới."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_OPERATOR_PC_INDEBTED",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "ask",
+          "label": {
+            "vi": "Hỏi Mai về con số"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ASKED_MAI_DEBT"
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "mai",
+              "tag": "T_O_ASKED_MAI_DEBT",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "silent",
+          "label": {
+            "vi": "Không hỏi"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_IGNORED_DEBT"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "silent"
+    },
+    {
+      "id": "EV_C_D1A_DUC_FOOD",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 1,
+        "segment": "afternoon"
+      },
+      "location": "canteen",
+      "summary": {
+        "vi": "Đức không được phát suất ăn vì 'chưa đạt'."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "share",
+          "label": {
+            "vi": "Chia nửa suất"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SHARED_FOOD_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "label": {
+            "vi": "Ăn phần mình"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_KEPT_FOOD"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "keep"
+    },
+    {
+      "id": "EV_C_D1N_PATROL",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 1,
+        "segment": "night"
+      },
+      "location": "dorm",
+      "summary": {
+        "vi": "Qua cửa sổ, bạn có thể theo dõi Vũ đi tuần."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "watch",
+          "label": {
+            "vi": "Thức theo dõi"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_WATCHED_PATROL_1"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "sleep",
+          "label": {
+            "vi": "Ngủ"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SLEPT_D1"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "sleep"
+    },
+    {
+      "id": "EV_O_D1N_VU_DRINK",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 1,
+        "segment": "night"
+      },
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Vũ rủ uống. Sau vài ly anh ta nói 'hồi tôi còn ở dưới kia'."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "join",
+          "label": {
+            "vi": "Ngồi uống"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_DRANK_WITH_VU"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_WAS_CAPTIVE",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "vu"
+            }
+          ]
+        },
+        {
+          "id": "decline",
+          "label": {
+            "vi": "Từ chối"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_DECLINED_VU"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "decline"
+    },
+    {
+      "id": "EV_S_QUOTA_SHIFT",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "forced",
+      "repeatable": true,
+      "location": "floor",
+      "window": {
+        "from": {
+          "day": 2,
+          "segment": "morning"
+        },
+        "to": {
+          "day": 6,
+          "segment": "morning"
+        },
+        "segments": [
+          "morning"
+        ]
+      },
+      "summary": {
+        "vi": "Ca làm. Chỉ tiêu là một con số; cách bạn đối diện nó là lựa chọn. (Không mô tả nội dung công việc.)"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "comply",
+          "label": {
+            "vi": "Tuân thủ"
+          },
+          "consequences": [
+            {
+              "type": "flagAdd",
+              "flag": "quota.score",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "slack",
+          "label": {
+            "vi": "Làm cầm chừng"
+          },
+          "consequences": [
+            {
+              "type": "flagAdd",
+              "flag": "quota.score",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        },
+        {
+          "id": "help",
+          "label": {
+            "vi": "Giúp người bên cạnh đạt"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_QUOTA_HELPED"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "sabotage",
+          "label": {
+            "vi": "Ngầm phá"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_QUOTA_SABOTAGED"
+            },
+            {
+              "type": "flagAdd",
+              "flag": "quota.score",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 20
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "comply",
+      "order": 0
+    },
+    {
+      "id": "EV_C_D2M_TRUCK",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 2,
+        "segment": "morning"
+      },
+      "location": "yard",
+      "summary": {
+        "vi": "Trên đường ra sàn, bạn thấy hai người lạ đi đếm giường với Mai."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Họ đếm người, không đếm đồ."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRUCK_DAY2_WAS_INVENTORY",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 25
+            }
+          ]
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_W_HEARD_AFTER_THIS_WEEK"
+          },
+          "text": {
+            "vi": "'Sau tuần này.' Đếm giường. Hai mảnh ghép."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 20
+            }
+          ]
+        }
+      ],
+      "choices": [],
+      "abstractionCheck": true,
+      "order": -5
+    },
+    {
+      "id": "EV_O_D2M_INVENTORY_SHEET",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 2,
+        "segment": "morning"
+      },
+      "location": "admin",
+      "summary": {
+        "vi": "Mai đưa phiếu 'kiểm kê tài sản' để bạn ký xác nhận số người trong tổ."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Cột 'tài sản' ghi tên người."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRUCK_DAY2_WAS_INVENTORY",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "ask_why",
+          "label": {
+            "vi": "Hỏi kiểm kê để làm gì"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ASKED_INVENTORY"
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "id": "file",
+          "label": {
+            "vi": "Ký và nộp"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_FILED_INVENTORY"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "file",
+      "order": -5
+    },
+    {
+      "id": "EV_C_D2A_DUC_CONFIDES",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 2,
+        "segment": "afternoon"
+      },
+      "location": "yard",
+      "preconditions": {
+        "op": "trust",
+        "npc": "duc",
+        "cmp": ">=",
+        "value": 1
+      },
+      "summary": {
+        "vi": "Đức nói nhỏ: em chỉ cần gọi một cuộc cho mẹ, một cuộc thôi."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Em ấy nói thật."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "duc"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "warn",
+          "label": {
+            "vi": "Cảnh báo: đừng làm gì dại"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_WARNED_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 0
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_WARNED_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "encourage",
+          "label": {
+            "vi": "'Nếu có cách, anh/chị sẽ giúp.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_ENCOURAGED_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_ENCOURAGED_DUC",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "warn"
+    },
+    {
+      "id": "EV_O_D2A_MAI_ROUTINE",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 2,
+        "segment": "afternoon"
+      },
+      "location": "admin",
+      "summary": {
+        "vi": "Đúng 14:00, Mai rời bàn mười phút. Hôm qua cũng vậy."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Người ghi sổ không bao giờ sai giờ. Trừ khi giờ đó là cuộc hẹn."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_EXISTS",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 10
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "follow",
+          "label": {
+            "vi": "Đi theo"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_FOLLOWED_MAI"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "id": "ignore",
+          "label": {
+            "vi": "Không phải việc mình"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_IGNORED_MAI_ROUTINE"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "ignore"
+    },
+    {
+      "id": "EV_C_D2N_LINH_PROBE",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 2,
+        "segment": "night"
+      },
+      "location": "dorm",
+      "summary": {
+        "vi": "Linh hỏi bâng quơ: 'Thằng Đức nói gì với em ngoài sân thế?'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "tell",
+          "label": {
+            "vi": "Kể thật"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_TOLD_LINH_ABOUT_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_TOLD_LINH_ABOUT_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "deflect",
+          "label": {
+            "vi": "'Chuyện trời mưa.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_DEFLECTED_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_DEFLECTED_LINH",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "deflect",
+      "order": 5
+    },
+    {
+      "id": "EV_O_D2N_OVERHEAR",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 2,
+        "segment": "night"
+      },
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Cửa phòng Thạch hé. 'Tôi sẽ tìm ra người nói chuyện với bên ngoài.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Không phải chuyện chỉ tiêu. Chuyện khác."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_BOSS_KNOWS_LEAK",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 15
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "linger",
+          "label": {
+            "vi": "Đứng nghe thêm"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_LINGERED"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_RAID_IMMINENT",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "id": "leave",
+          "label": {
+            "vi": "Đi tiếp"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_LEFT_QUIETLY"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "leave"
+    },
+    {
+      "id": "EV_C_D3M_DUC_PALE",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 3,
+        "segment": "morning"
+      },
+      "location": "floor",
+      "slice": true,
+      "summary": {
+        "vi": "Đức được gọi đi mang sổ lên hành chính. Khi quay lại, mặt em tái, tay không rời túi quần."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Có gì đó trong túi. Hoặc bạn tưởng thế."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 40
+            }
+          ]
+        }
+      ],
+      "choices": [],
+      "abstractionCheck": true,
+      "order": 5
+    },
+    {
+      "id": "EV_O_D3M_THACH_ORDER",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 3,
+        "segment": "morning"
+      },
+      "location": "mgmt_hall",
+      "slice": true,
+      "summary": {
+        "vi": "Thạch: 'Chiều nay khám ký túc. Lý do công khai: mất điện thoại văn phòng. Lý do thật: tôi đang tìm người nói chuyện với bên ngoài. Cậu đi cùng Vũ.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Anh ta không quan tâm chiếc điện thoại nào cả."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_SEARCH_IS_LEAK_HUNT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_BOSS_KNOWS_LEAK",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_SEARCH_IS_ABOUT_STOLEN_PHONE",
+              "status": "CONFIRMED",
+              "believedValue": false,
+              "source": "thach"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept",
+          "label": {
+            "vi": "'Rõ.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ACCEPTED_ORDER"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            }
+          ]
+        },
+        {
+          "id": "ask_suspect",
+          "label": {
+            "vi": "Hỏi anh nghi ai"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ASKED_THACH_SUSPECT"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "thach"
+            }
+          ]
+        },
+        {
+          "id": "point_mai",
+          "label": {
+            "vi": "'Mai có thói quen lạ lúc 14:00.'"
+          },
+          "available": {
+            "op": "tag",
+            "tag": "T_O_FOLLOWED_MAI"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_POINTED_AT_MAI"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "npcTag",
+              "npc": "thach",
+              "tag": "T_O_POINTED_AT_MAI",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "accept",
+      "order": -5
+    },
+    {
+      "id": "EV_O_D3M_MAI_PANIC",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 3,
+        "segment": "morning"
+      },
+      "location": "admin",
+      "slice": true,
+      "summary": {
+        "vi": "Sau thông báo khám xét, Mai lục hết ngăn bàn, tay run. Cô ấy mất thứ gì đó. Thật."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Người bịa cớ là Thạch. Nhưng Mai thật sự mất một thứ."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 20
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "confront",
+          "label": {
+            "vi": "Hỏi khẽ: 'Chị mất gì?'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_CONFRONTED_MAI"
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "npcTag",
+              "npc": "mai",
+              "tag": "T_O_CONFRONTED_MAI",
+              "via": "witness"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_EXISTS",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "mai"
+            }
+          ]
+        },
+        {
+          "id": "note",
+          "label": {
+            "vi": "Ghi nhớ, không nói"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_NOTED_MAI_PANIC"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "note"
+    },
+    {
+      "id": "EV_C_D3A_SEARCH",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 3,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "slice": true,
+      "summary": {
+        "vi": "Khám xét ký túc. Vũ và một nhân viên lật từng giường. Vũ rút từ gối Đức một tờ giấy gấp."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "stat",
+            "stat": "stress",
+            "cmp": ">=",
+            "value": 45
+          },
+          "text": {
+            "vi": "Vũ nhét thứ gì đó vào túi áo. Nhỏ, đen. Hình như."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_FOUND_PHONE_D3",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "misinformation": true,
+              "uncertainAboveStress": 0
+            }
+          ]
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "stat",
+            "stat": "stress",
+            "cmp": "<",
+            "value": 45
+          },
+          "text": {
+            "vi": "Tờ giấy. Chỉ là tờ giấy. Vũ đọc rồi bỏ túi."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_FOUND_PHONE_D3",
+              "status": "OBSERVED",
+              "believedValue": false,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "npcKnowsTag",
+            "npc": "vu",
+            "tag": "T_C_PROTESTED_INTAKE"
+          },
+          "text": {
+            "vi": "Vũ lật giường bạn kỹ gấp đôi người khác. Anh ta nhớ hôm đầu."
+          },
+          "grants": [
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "cover",
+          "label": {
+            "vi": "Đứng chắn tầm nhìn về phía giường Đức"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_COVERED_DUC_SEARCH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 15
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 2
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_COVERED_DUC_SEARCH",
+              "via": "witness"
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_COVERED_DUC_SEARCH",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "aside",
+          "label": {
+            "vi": "Đứng yên, nhìn xuống"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_STOOD_ASIDE"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "volunteer",
+          "label": {
+            "vi": "Xung phong bị khám trước"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_VOLUNTEERED_SEARCH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_C_VOLUNTEERED_SEARCH",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "aside",
+      "order": -5
+    },
+    {
+      "id": "EV_O_D3A_SEARCH",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 3,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "slice": true,
+      "summary": {
+        "vi": "Bạn và Vũ khám ký túc. Vũ tìm thấy một lá thư chưa gửi dưới gối Đức: gửi mẹ."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Thư gửi mẹ. Không phải bằng chứng rò rỉ. Nhưng là thứ Thạch có thể dùng."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "thorough",
+          "label": {
+            "vi": "Khám kỹ, đúng lệnh"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SEARCH_THOROUGH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -1
+            }
+          ]
+        },
+        {
+          "id": "lenient",
+          "label": {
+            "vi": "Khám qua loa, bỏ qua lá thư"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SEARCH_LENIENT"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_SEARCH_LENIENT",
+              "via": "witness"
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_O_SEARCH_LENIENT",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "watch_linh",
+          "label": {
+            "vi": "Để Vũ làm, bạn quan sát Linh"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_WATCHED_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 0
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "thorough",
+      "order": 5
+    },
+    {
+      "id": "EV_C_D3A_LINH_WHISPER",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 3,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "slice": true,
+      "summary": {
+        "vi": "Khám xong. Linh kéo bạn ra góc: 'Em có thấy thằng Đức cầm gì sáng nay không?'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "tell",
+          "label": {
+            "vi": "Kể điều bạn thấy"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_TOLD_LINH_ABOUT_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_TOLD_LINH_ABOUT_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "silent",
+          "label": {
+            "vi": "'Em không thấy gì.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SILENT_TO_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "suspect",
+          "label": {
+            "vi": "'Sao chị hỏi nhiều thế?'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_QUESTIONED_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_QUESTIONED_LINH",
+              "via": "witness"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "silent",
+      "order": 5
+    },
+    {
+      "id": "EV_C_D3N_DUC_CONFESSION",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 3,
+        "segment": "night"
+      },
+      "location": "dorm",
+      "slice": true,
+      "preconditions": {
+        "op": "trust",
+        "npc": "duc",
+        "cmp": ">=",
+        "value": 2
+      },
+      "summary": {
+        "vi": "Đức thì thầm: 'Em lấy một cái điện thoại. Trong ngăn bàn chị Mai. Em giấu trên trần nhà vệ sinh. Em chưa gọi được.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Em ấy không biết điện thoại đó là gì. Bạn cũng chưa."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_EXISTS",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "duc"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "duc"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "duc"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "duc"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "keep_secret",
+          "label": {
+            "vi": "Giữ bí mật cho em"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_KEPT_DUC_SECRET"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            }
+          ]
+        },
+        {
+          "id": "warn_linh",
+          "label": {
+            "vi": "'Đừng kể với chị Linh.'"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_LINH_INFORMANT",
+            "minStatus": "RUMOR"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_WARNED_DUC_ABOUT_LINH"
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_WARNED_DUC_ABOUT_LINH",
+              "via": "witness"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "urge_return",
+          "label": {
+            "vi": "Bảo em trả lại"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_URGED_RETURN"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "keep_secret"
+    },
+    {
+      "id": "EV_O_D3N_LINH_TIP",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 3,
+        "segment": "night"
+      },
+      "location": "mgmt_hall",
+      "slice": true,
+      "summary": {
+        "vi": "Vũ đưa bạn một mẩu giấy gấp từ ký túc, chữ Linh: 'Người mới lảng vảng gần hành chính sáng nay.' Bạn là người chuyển nó lên Thạch. Hoặc không."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Bạn không thể biết nó đúng hay sai. Chưa."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_CAPTIVE_PC_NEAR_ADMIN_D3",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "linh",
+              "misinformation": true
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "pass_up",
+          "label": {
+            "vi": "Chuyển nguyên văn cho Thạch"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_REPORTED_CAPTIVE_TIP"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            },
+            {
+              "type": "flag",
+              "flag": "thach.hasCaptiveTip",
+              "value": true
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_CAPTIVE_PC_NEAR_ADMIN_D3",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "linh",
+              "misinformation": true
+            },
+            {
+              "type": "schedule",
+              "eventId": "EV_O_D4M_INTERROGATE_NEWCOMER",
+              "at": 9
+            }
+          ]
+        },
+        {
+          "id": "suppress",
+          "label": {
+            "vi": "Xé đi"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SUPPRESSED_TIP"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "verify",
+          "label": {
+            "vi": "Giữ lại, sáng mai kiểm tra sổ ra vào"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_VERIFY_TIP"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "schedule",
+              "eventId": "EV_O_D4M_VERIFY_TIP",
+              "at": 9
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "pass_up",
+      "order": 5
+    },
+    {
+      "id": "EV_C_D4M_INTERROGATION",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "scheduled",
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Bạn bị gọi lên phòng. 'Sáng hôm qua em làm gì gần hành chính?' Bạn chưa từng đến đó."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Ai đó đã nói tên bạn."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "deny",
+          "label": {
+            "vi": "Phủ nhận bình tĩnh"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_DENIED_CALMLY"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "blame_duc",
+          "label": {
+            "vi": "'Thử hỏi Đức xem.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_BLAMED_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -20
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -3
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_BLAMED_DUC",
+              "via": "told",
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            }
+          ]
+        },
+        {
+          "id": "blame_linh",
+          "label": {
+            "vi": "'Người hỏi em nhiều nhất là Linh.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_BLAMED_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -2
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_BLAMED_LINH",
+              "via": "told",
+              "source": "thach"
+            }
+          ]
+        },
+        {
+          "id": "silent",
+          "label": {
+            "vi": "Không nói gì"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SILENT_INTERROGATION"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 20
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "stat",
+                "stat": "suspicion",
+                "cmp": ">=",
+                "value": 80
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "captive_pc.isolated",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "deny"
+    },
+    {
+      "id": "EV_O_D4M_INTERROGATE_NEWCOMER",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Thạch giao bạn thẩm vấn người mới. Người đó không biết gì. Bạn có thể thấy điều đó. Thạch thì cần kết quả."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Mắt người đó không có gì để giấu."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_CAPTIVE_PC_NEAR_ADMIN_D3",
+              "status": "OBSERVED",
+              "believedValue": false,
+              "source": "self",
+              "uncertainAboveStress": 40
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "pressure",
+          "label": {
+            "vi": "Ép tới cùng"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_PRESSURED_NEWCOMER"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 15
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            },
+            {
+              "type": "flag",
+              "flag": "captive_pc.isolated",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "motions",
+          "label": {
+            "vi": "Làm cho có"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SOFT_INTERROGATION"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "clear",
+          "label": {
+            "vi": "Báo Thạch: người này sạch"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_CLEARED_NEWCOMER"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 15
+            },
+            {
+              "type": "trust",
+              "npc": "thach",
+              "delta": -1
+            },
+            {
+              "type": "flag",
+              "flag": "thach.hasCaptiveTip",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "motions"
+    },
+    {
+      "id": "EV_O_D4M_VERIFY_TIP",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "admin",
+      "summary": {
+        "vi": "Sổ ra vào hành chính: sáng ngày 3 chỉ có Đức lên nộp sổ. Người mới ở sàn cả buổi."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Tin của Linh sai. Cố tình hay không, bạn chưa biết."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_CAPTIVE_PC_NEAR_ADMIN_D3",
+              "status": "OBSERVED",
+              "believedValue": false,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "discredit",
+          "label": {
+            "vi": "Báo Thạch: nguồn trong ký túc không đáng tin"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_DISCREDITED_LINH"
+            },
+            {
+              "type": "flag",
+              "flag": "linh.reportsToThach",
+              "value": false
+            },
+            {
+              "type": "trust",
+              "npc": "thach",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "label": {
+            "vi": "Giữ cho riêng mình"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_KEPT_VERIFICATION"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "keep"
+    },
+    {
+      "id": "EV_O_D4M_THACH_NAME",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 4,
+        "segment": "morning"
+      },
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Thạch: 'Trước ngày 6 tôi cần một cái tên. Bất kỳ tên nào cũng tốt hơn không có tên.'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "name_duc",
+          "label": {
+            "vi": "Đưa tên Đức"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_PHONE_TAKEN_BY_DUC",
+            "minStatus": "RUMOR"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_NAMED_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -20
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -3
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_DUC_IS_THE_LEAK",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "misinformation": true
+            }
+          ]
+        },
+        {
+          "id": "name_mai",
+          "label": {
+            "vi": "Đưa tên Mai"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_PHONE_OWNER_MAI",
+            "minStatus": "RUMOR"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_REPORTED_MAI"
+            },
+            {
+              "type": "flag",
+              "flag": "mai.exposed",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -20
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": -3
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "npcTag",
+              "npc": "mai",
+              "tag": "T_O_REPORTED_MAI",
+              "via": "told",
+              "source": "thach"
+            }
+          ]
+        },
+        {
+          "id": "stall",
+          "label": {
+            "vi": "'Cho tôi thêm hai ngày.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_STALLED"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 15
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "ask_linh",
+          "label": {
+            "vi": "Hỏi về Linh: 'Cô ấy được hứa gì?'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ASKED_ABOUT_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_RELEASE_IS_LIE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "order": 10,
+      "defaultChoice": "stall"
+    },
+    {
+      "id": "EV_C_D4A_PHONE_DECISION",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 4,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "playerBelief",
+            "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+            "minStatus": "OBSERVED"
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          },
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Giờ sinh hoạt, nhà vệ sinh vắng. Chiếc điện thoại vẫn ở trên trần."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "move_yard",
+          "label": {
+            "vi": "Cùng Đức chuyển ra hốc tường sân"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_HELPED_DUC_MOVE_PHONE"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "yard_cache"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_HELPED_DUC_MOVE_PHONE",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "take",
+          "label": {
+            "vi": "Tự giữ lấy"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_TOOK_PHONE"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "player"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 15
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_TOOK_PHONE",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "leave",
+          "label": {
+            "vi": "Để nguyên"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_LEFT_PHONE"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "leave"
+    },
+    {
+      "id": "EV_C_D4N_LINH_OFFER",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 4,
+        "segment": "night"
+      },
+      "location": "yard",
+      "summary": {
+        "vi": "Đêm. Linh ngồi xuống mép giường: 'Nếu thằng Đức có gì nguy hiểm, đưa chị giữ. Chị biết chỗ.'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "hand_over",
+          "label": {
+            "vi": "Đưa chị ấy điện thoại"
+          },
+          "available": {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "player"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_GAVE_LINH_PHONE"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "linh"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            },
+            {
+              "type": "belief",
+              "agent": "linh",
+              "factId": "F_PHONE_EXISTS",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "player"
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "label": {
+            "vi": "'Không có gì đâu chị.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_REFUSED_LINH_OFFER"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            }
+          ]
+        },
+        {
+          "id": "confront",
+          "label": {
+            "vi": "'Chị giữ để đưa cho ai?'"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_LINH_INFORMANT",
+            "minStatus": "RUMOR"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_CONFRONTED_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_CONFRONTED_LINH",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "refuse",
+      "order": 5
+    },
+    {
+      "id": "EV_O_D4A_LEDGER",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 4,
+        "segment": "afternoon"
+      },
+      "location": "admin",
+      "preconditions": {
+        "op": "or",
+        "args": [
+          {
+            "op": "trust",
+            "npc": "mai",
+            "cmp": ">=",
+            "value": 1
+          },
+          {
+            "op": "tag",
+            "tag": "T_O_CONFRONTED_MAI"
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Mai để sổ nợ mở trên bàn khi ra ngoài. Cố ý hay không."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Cột 'thưởng' có tên Linh. Cột 'nợ' có tên bạn, tên Vũ, tên tất cả."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_HOLDS_DEBT_LEDGER",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_DEBT_LEDGER_PROVES_COERCION",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_OPERATOR_PC_INDEBTED",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_WAS_CAPTIVE",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "copy",
+          "label": {
+            "vi": "Chép lại một trang"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_COPIED_LEDGER"
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.ledgerCopy",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "read",
+          "label": {
+            "vi": "Chỉ đọc"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_READ_LEDGER"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "read"
+    },
+    {
+      "id": "EV_O_D4A_DUC_QUESTIONED",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 4,
+        "segment": "afternoon"
+      },
+      "location": "floor",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "op": "playerBelief",
+                "factId": "F_PHONE_TAKEN_BY_DUC",
+                "minStatus": "RUMOR"
+              },
+              {
+                "op": "tag",
+                "tag": "T_O_SEARCH_THOROUGH"
+              },
+              {
+                "op": "tag",
+                "tag": "T_O_SEARCH_LENIENT"
+              }
+            ]
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Bạn giữ Đức lại sau ca. Lá thư gửi mẹ đang trong túi bạn hoặc trong túi Vũ."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "pressure",
+          "label": {
+            "vi": "Ép em khai"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_PUNISHED_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -2
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_PUNISHED_DUC",
+              "via": "witness"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "duc"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "duc"
+            }
+          ]
+        },
+        {
+          "id": "spare",
+          "label": {
+            "vi": "Nói nhỏ, trả lá thư"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SPARED_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_SPARED_DUC",
+              "via": "witness"
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_O_SPARED_DUC",
+              "via": "witness"
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "and",
+                "args": [
+                  {
+                    "op": "trust",
+                    "npc": "duc",
+                    "cmp": ">=",
+                    "value": 1
+                  },
+                  {
+                    "op": "not",
+                    "arg": {
+                      "op": "tag",
+                      "tag": "T_O_HARSH_INTAKE"
+                    }
+                  }
+                ]
+              },
+              "then": [
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_PHONE_TAKEN_BY_DUC",
+                  "status": "OBSERVED",
+                  "believedValue": true,
+                  "source": "duc"
+                },
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+                  "status": "OBSERVED",
+                  "believedValue": true,
+                  "source": "duc"
+                },
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+                  "status": "CONFIRMED",
+                  "believedValue": true,
+                  "source": "duc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hand_to_vu",
+          "label": {
+            "vi": "Giao cho Vũ xử lý"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_HANDED_DUC_TO_VU"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_HANDED_DUC_TO_VU",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "hand_to_vu"
+    },
+    {
+      "id": "EV_C_D4N_PATROL2",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 4,
+        "segment": "night"
+      },
+      "location": "dorm",
+      "summary": {
+        "vi": "Lại đêm. Vũ lại đi tuần. Nếu bạn đã xem một lần, lần này bạn biết phải nhìn vào đâu."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "and",
+            "args": [
+              {
+                "op": "playerBelief",
+                "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+                "minStatus": "OBSERVED"
+              },
+              {
+                "op": "npcStatus",
+                "npc": "duc",
+                "is": "present"
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "flag",
+                  "flag": "phone.location",
+                  "equals": "dorm_ceiling"
+                }
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "flag",
+                  "flag": "phone.location",
+                  "equals": "yard_cache"
+                }
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "flag",
+                  "flag": "phone.location",
+                  "equals": "player"
+                }
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "flag",
+                  "flag": "phone.location",
+                  "equals": "linh"
+                }
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "tag",
+                  "tag": "T_C_TOOK_PHONE"
+                }
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "tag",
+                  "tag": "T_W_PHONE_CONFISCATED"
+                }
+              }
+            ]
+          },
+          "text": {
+            "vi": "Trước giờ tắt đèn, Đức lên nhà vệ sinh rồi quay xuống, mặt trắng bệch. Em không nói gì. Em không cần nói."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_PHONE_VANISHED"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "watch",
+          "label": {
+            "vi": "Thức theo dõi"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_WATCHED_PATROL_2"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "tag",
+                "tag": "T_C_WATCHED_PATROL_1"
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "escape.routeKnown",
+                  "value": true
+                },
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_VU_KNOWS_BLINDSPOT",
+                  "status": "OBSERVED",
+                  "believedValue": true,
+                  "source": "self"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sleep",
+          "label": {
+            "vi": "Ngủ"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SLEPT_D4"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "sleep"
+    },
+    {
+      "id": "EV_O_D4N_VU_CONFIDES",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 4,
+        "segment": "night"
+      },
+      "location": "mgmt_hall",
+      "preconditions": {
+        "op": "trust",
+        "npc": "vu",
+        "cmp": ">=",
+        "value": 2
+      },
+      "summary": {
+        "vi": "Vũ kể: anh ta từng ở dưới kia. Và chỗ anh ta ra hút thuốc lúc đổi ca đêm, camera không với tới."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Anh ta vừa đưa bạn một lối ra. Có lẽ không cố ý."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_WAS_CAPTIVE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_KNOWS_BLINDSPOT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "flag",
+              "flag": "escape.routeKnown",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "keep",
+          "label": {
+            "vi": "Hứa giữ kín"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_KEPT_VU_SECRET"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            }
+          ]
+        },
+        {
+          "id": "warn",
+          "label": {
+            "vi": "Cảnh báo anh ta: sắp có chuyện với cả tầng"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_TRANSFER_DAY7",
+            "minStatus": "RUMOR"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_WARNED_VU"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "belief",
+              "agent": "vu",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_WARNED_VU",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "keep"
+    },
+    {
+      "id": "EV_S_D5A_PHONE_FOUND_BY_VU",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "dorm",
+      "slice": true,
+      "summary": {
+        "vi": "ECHO của ngày 3. Vũ kiểm tra trần nhà vệ sinh theo lịch, lôi xuống một chiếc điện thoại. Anh ta không báo ai. Chưa."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Vũ bước xuống, bỏ túi, đi ra. Không nói một lời."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_SAW_VU_TAKE_PHONE"
+            }
+          ]
+        },
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "trust",
+            "npc": "vu",
+            "cmp": ">=",
+            "value": 1
+          },
+          "text": {
+            "vi": "Vũ kéo bạn ra: 'Tôi tìm thấy một thứ. Tôi không muốn là người nộp nó.'"
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_VU_SHOWED_PHONE"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_EXISTS",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            }
+          ],
+          "_doc": "MVP (F-01): Vũ also shows the phone to a newcomer he has come to trust (trust ≥ 1); `c_hide` then earns his trust."
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "trust",
+            "npc": "vu",
+            "cmp": "<",
+            "value": 1
+          },
+          "text": {
+            "vi": "Vũ đi qua bạn, túi áo nặng hơn bình thường."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_EXISTS",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self",
+              "uncertainAboveStress": 60
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "c_tell_duc",
+          "label": {
+            "vi": "Báo cho Đức"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "captive"
+              },
+              {
+                "op": "npcStatus",
+                "npc": "duc",
+                "is": "present"
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_TOLD_DUC_PHONE_GONE"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "c_hide",
+          "label": {
+            "vi": "Không nói với ai"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_HID_FROM_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "tag",
+                "tag": "T_W_VU_SHOWED_PHONE"
+              },
+              "then": [
+                {
+                  "type": "trust",
+                  "npc": "vu",
+                  "delta": 1
+                },
+                {
+                  "type": "npcTag",
+                  "npc": "vu",
+                  "tag": "T_C_HID_FROM_DUC",
+                  "via": "witness"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "o_take",
+          "label": {
+            "vi": "'Đưa tôi.'"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "tag",
+                "tag": "T_W_VU_SHOWED_PHONE"
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_TOOK_PHONE_FROM_VU"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "player"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_TOOK_PHONE_FROM_VU",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "o_report",
+          "label": {
+            "vi": "'Nộp cho Thạch đi.'"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "tag",
+                "tag": "T_W_VU_SHOWED_PHONE"
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_TOLD_VU_REPORT"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "thach"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_EXISTS",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            }
+          ]
+        },
+        {
+          "id": "o_hide",
+          "label": {
+            "vi": "'Giữ im. Đừng nộp.'"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "tag",
+                "tag": "T_W_VU_SHOWED_PHONE"
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_TOLD_VU_HIDE"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_TOLD_VU_HIDE",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "o_nothing",
+          "label": {
+            "vi": "Coi như không thấy"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "not",
+                "arg": {
+                  "op": "tag",
+                  "tag": "T_W_VU_SHOWED_PHONE"
+                }
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_IGNORED_VU_POCKET"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": {
+        "captive": "c_hide",
+        "operator": "o_report"
+      }
+    },
+    {
+      "id": "EV_S_D5A_DUC_TAKEN",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "dorm",
+      "slice": true,
+      "summary": {
+        "vi": "ECHO của ngày 3. Thạch cho lục trần nhà vệ sinh, lấy điện thoại, và cho gọi Đức lên phòng. Em không quay lại ký túc tối đó."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Họ biết chính xác chỗ cần tìm. Ai đó đã nói."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_SAW_DUC_TAKEN"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Thạch: 'Thằng nhóc là đứa rò rỉ. Xong.' Vũ nhìn xuống sàn. Không ai hỏi bằng chứng."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_SAW_DUC_TAKEN"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_DUC_IS_THE_LEAK",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "thach",
+              "misinformation": true
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "c_speak",
+          "label": {
+            "vi": "Lên tiếng: 'Em ấy không làm gì cả.'"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SPOKE_FOR_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 20
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_SPOKE_FOR_DUC",
+              "via": "witness"
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_C_SPOKE_FOR_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "c_silent",
+          "label": {
+            "vi": "Im lặng"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_SILENT_DUC_TAKEN"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 20
+            }
+          ]
+        },
+        {
+          "id": "o_carry_out",
+          "label": {
+            "vi": "Thi hành"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_PROCESSED_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 20
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_PROCESSED_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "o_object",
+          "label": {
+            "vi": "Phản đối trước mặt Thạch"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_OBJECTED_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 20
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "trust",
+              "npc": "thach",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_O_OBJECTED_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "o_soften",
+          "label": {
+            "vi": "Ngầm sắp xếp để em chỉ bị 'hạ xuống', không hơn"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SOFTENED_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "npcStatus",
+              "npc": "duc",
+              "status": "demoted"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": {
+        "captive": "c_silent",
+        "operator": "o_carry_out"
+      }
+    },
+    {
+      "id": "EV_O_D5A_MAI_DEAL",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "admin",
+      "summary": {
+        "vi": "Mai đóng cửa. 'Điện thoại đó là của tôi. Trong đó có lịch ngày 7. Lấy lại cho tôi, tôi sửa con số của cậu. Tôi làm thế này là vì tất cả mọi người.' Cô ấy nói thêm: 'Bên ngoài cần sổ nợ. Sổ nợ là thứ kết tội.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Câu cuối cô ấy nói hơi nhanh."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_LEAKING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_CONTACT_OUTSIDE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_CONTAINS_TRANSFER_PROOF",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_RAID_IMMINENT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_LEAK_IS_FOR_EVERYONE",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "mai",
+              "misinformation": true
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_DEBT_LEDGER_PROVES_COERCION",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "mai"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "agree",
+          "label": {
+            "vi": "Nhận"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_AGREED_MAI_DEAL"
+            },
+            {
+              "type": "flag",
+              "flag": "mai.dealActive",
+              "value": true
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": 1
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "label": {
+            "vi": "Từ chối"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_REFUSED_MAI"
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "demand_all",
+          "label": {
+            "vi": "'Tất cả mọi người, hay không ai cả.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_DEMANDED_MAI_ALL"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "trust",
+                "npc": "mai",
+                "cmp": ">=",
+                "value": 2
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "mai.dealActive",
+                  "value": true
+                },
+                {
+                  "type": "flag",
+                  "flag": "mai.dealIncludesAll",
+                  "value": true
+                },
+                {
+                  "type": "trust",
+                  "npc": "mai",
+                  "delta": 1
+                },
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_MAI_LEAK_IS_FOR_EVERYONE",
+                  "status": "OBSERVED",
+                  "believedValue": false,
+                  "source": "self"
+                }
+              ],
+              "else": [
+                {
+                  "type": "trust",
+                  "npc": "mai",
+                  "delta": -1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "refuse"
+    },
+    {
+      "id": "EV_C_D5A_PHONE_CONTENTS",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 5,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "preconditions": {
+        "op": "or",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "player"
+          },
+          {
+            "op": "and",
+            "args": [
+              {
+                "op": "flag",
+                "flag": "phone.location",
+                "equals": "yard_cache"
+              },
+              {
+                "op": "tag",
+                "tag": "T_C_HELPED_DUC_MOVE_PHONE"
+              }
+            ]
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Pin còn một vạch. Tin nhắn cuối: 'Xe đến đêm ngày 7. Đưa tôi ra trước.' Ký 'M.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Không phải điện thoại của Đức. Của người ký 'M.'. Và ngày 7 là cái gì đó."
+          },
+          "grants": [
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "player"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_CONTAINS_TRANSFER_PROOF",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_CONTACT_OUTSIDE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_LEAKING",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "call_out",
+          "label": {
+            "vi": "Gọi số đó. Nói tất cả."
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_CALLED_OUTSIDE"
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.outside",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "duc_call",
+          "label": {
+            "vi": "Đưa Đức gọi cho mẹ trước"
+          },
+          "available": {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_GAVE_DUC_CALL"
+            },
+            {
+              "type": "flag",
+              "flag": "duc.calledHome",
+              "value": true
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 15
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_GAVE_DUC_CALL",
+              "via": "witness"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "label": {
+            "vi": "Tắt máy. Giữ pin."
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_KEPT_PHONE"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "keep"
+    },
+    {
+      "id": "EV_O_D5A_PHONE_CONTENTS",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 5,
+        "segment": "afternoon"
+      },
+      "location": "mgmt_hall",
+      "preconditions": {
+        "op": "flag",
+        "flag": "phone.location",
+        "equals": "player"
+      },
+      "summary": {
+        "vi": "Bạn mở điện thoại. Tin nhắn ký 'M.' với một số bên ngoài: lịch xe, số người, một câu 'đưa tôi ra trước'."
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Đây là thứ Thạch tìm. Và là thứ có thể kết thúc tất cả."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_CONTAINS_TRANSFER_PROOF",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_CONTACT_OUTSIDE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_LEAKING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "send_out",
+          "label": {
+            "vi": "Nhắn cho số đó: toàn bộ sổ, toàn bộ tầng."
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SENT_EVIDENCE_OUT"
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.outside",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "flag": "operator.cooperationProof",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "to_thach",
+          "label": {
+            "vi": "Nộp Thạch"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_GAVE_PHONE_TO_THACH"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "thach"
+            },
+            {
+              "type": "flag",
+              "flag": "mai.exposed",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -25
+            },
+            {
+              "type": "trust",
+              "npc": "thach",
+              "delta": 2
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": -3
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_OWNER_MAI",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_MAI_LEAKING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "player"
+            }
+          ]
+        },
+        {
+          "id": "to_mai",
+          "label": {
+            "vi": "Trả Mai"
+          },
+          "available": {
+            "op": "flag",
+            "flag": "mai.dealActive",
+            "equals": true
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_RETURNED_PHONE_MAI"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "mai"
+            },
+            {
+              "type": "trust",
+              "npc": "mai",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.outside",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "destroy",
+          "label": {
+            "vi": "Phá hủy"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_DESTROYED_PHONE"
+            },
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "destroyed"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "to_thach"
+    },
+    {
+      "id": "EV_C_D5N_VU_TALK",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 5,
+        "segment": "night"
+      },
+      "location": "yard",
+      "preconditions": {
+        "op": "trust",
+        "npc": "vu",
+        "cmp": ">=",
+        "value": 1
+      },
+      "summary": {
+        "vi": "Vũ cho bạn ra sân hút thuốc với anh ta. 'Tôi cũng từng ngủ giường đó. Con Linh được hứa thả từ tháng ba. Ai cũng được hứa.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Chỗ anh ta đứng, không có đèn nào chiếu tới."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_WAS_CAPTIVE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_RELEASE_IS_LIE",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_INFORMANT",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_VU_KNOWS_BLINDSPOT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "vu"
+            },
+            {
+              "type": "flag",
+              "flag": "escape.routeKnown",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "ask_look_away",
+          "label": {
+            "vi": "'Đêm mốt, anh nhìn đi chỗ khác được không?'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_ASKED_VU_LOOK_AWAY"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "trust",
+                "npc": "vu",
+                "cmp": ">=",
+                "value": 2
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "escape.vuWillOpen",
+                  "value": true
+                },
+                {
+                  "type": "npcTag",
+                  "npc": "vu",
+                  "tag": "T_C_ASKED_VU_LOOK_AWAY",
+                  "via": "witness"
+                }
+              ],
+              "else": [
+                {
+                  "type": "trust",
+                  "npc": "vu",
+                  "delta": -1
+                },
+                {
+                  "type": "stat",
+                  "stat": "suspicion",
+                  "delta": 10
+                },
+                {
+                  "type": "npcTag",
+                  "npc": "vu",
+                  "tag": "T_C_ASKED_VU_LOOK_AWAY",
+                  "via": "witness"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "listen",
+          "label": {
+            "vi": "Chỉ nghe"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_LISTENED_VU"
+            },
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "listen"
+    },
+    {
+      "id": "EV_O_D5N_LINH_CONTACT",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 5,
+        "segment": "night"
+      },
+      "location": "dorm",
+      "preconditions": {
+        "op": "playerBelief",
+        "factId": "F_LINH_INFORMANT",
+        "minStatus": "OBSERVED"
+      },
+      "summary": {
+        "vi": "Bạn đi thay Vũ nhận giấy báo từ Linh. Cô ấy hỏi: 'Anh có biết hôm nào em được thả không?'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "tell_truth",
+          "label": {
+            "vi": "Nói thật: không có ngày nào cả"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_LINH_RELEASE_IS_LIE",
+            "minStatus": "CONFIRMED"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_TOLD_LINH_TRUTH"
+            },
+            {
+              "type": "flag",
+              "flag": "linh.reportsToThach",
+              "value": false
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "belief",
+              "agent": "linh",
+              "factId": "F_LINH_RELEASE_IS_LIE",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_O_TOLD_LINH_TRUTH",
+              "via": "witness"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_LINH_SAW_DUC_TAKE_PHONE",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "linh"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "OBSERVED",
+              "believedValue": true,
+              "source": "linh"
+            }
+          ]
+        },
+        {
+          "id": "use",
+          "label": {
+            "vi": "'Sắp rồi. Chị cứ báo đều.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_USED_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -5
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "leave",
+          "label": {
+            "vi": "Không trả lời"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_LEFT_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "leave"
+    },
+    {
+      "id": "EV_O_D6M_THACH_OFFER",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 6,
+        "segment": "morning"
+      },
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Thạch đóng cửa. 'Đêm mai xe đến chở cả tầng đi. Tôi đi trước, đêm nay. Tôi cần một người lái. Cậu hoặc không ai.' 'Hôm đếm giường là đếm cho chuyến này.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "operator"
+          ],
+          "text": {
+            "vi": "Anh ta chưa bao giờ định ở lại."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_THACH_PLANS_OWN_EXIT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_RAID_IMMINENT",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRUCK_DAY2_WAS_INVENTORY",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "thach"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept",
+          "label": {
+            "vi": "Nhận lời"
+          },
+          "available": {
+            "op": "trust",
+            "npc": "thach",
+            "cmp": ">=",
+            "value": 1
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ACCEPTED_THACH_EXIT"
+            },
+            {
+              "type": "flag",
+              "flag": "escape.routeKnown",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "flag": "escape.withThach",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "label": {
+            "vi": "Từ chối"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_REFUSED_THACH"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 25
+            },
+            {
+              "type": "trust",
+              "npc": "thach",
+              "delta": -2
+            }
+          ]
+        },
+        {
+          "id": "feign",
+          "label": {
+            "vi": "Giả vờ nhận"
+          },
+          "available": {
+            "op": "trust",
+            "npc": "thach",
+            "cmp": ">=",
+            "value": 1
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_FEIGNED_ACCEPT"
+            },
+            {
+              "type": "flag",
+              "flag": "escape.routeKnown",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 15
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "refuse",
+      "order": -5
+    },
+    {
+      "id": "EV_C_D6M_THACH_DEAL",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "scheduled",
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Thạch gọi bạn lên. 'Em làm được. Lên team đi. Có giường riêng, có cửa khóa từ bên trong.'"
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "text": {
+            "vi": "Anh ta đề nghị bạn trở thành thứ đã nhốt bạn."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_OFFERED_TEAM"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept",
+          "label": {
+            "vi": "Nhận"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_ACCEPTED_THACH_DEAL"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -30
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -2
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -1
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_ACCEPTED_THACH_DEAL",
+              "via": "told",
+              "source": "linh"
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "label": {
+            "vi": "Từ chối"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_REFUSED_THACH_DEAL"
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 15
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "stall",
+          "label": {
+            "vi": "'Cho em nghĩ.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_STALLED_THACH"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "refuse"
+    },
+    {
+      "id": "EV_C_D6A_LINH_TRUTH",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 6,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "playerBelief",
+            "factId": "F_LINH_INFORMANT",
+            "minStatus": "OBSERVED"
+          },
+          {
+            "op": "npcStatus",
+            "npc": "linh",
+            "is": "present"
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Bạn biết đủ về Linh. Bạn có một buổi chiều để quyết định làm gì với điều đó."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "expose",
+          "label": {
+            "vi": "Nói cho cả ký túc"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_EXPOSED_LINH"
+            },
+            {
+              "type": "trust",
+              "npc": "linh",
+              "delta": -3
+            },
+            {
+              "type": "flag",
+              "flag": "linh.reportsToThach",
+              "value": false
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_EXPOSED_LINH",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "turn",
+          "label": {
+            "vi": "Nói riêng với chị ấy: 'Không có ngày thả nào đâu.'"
+          },
+          "available": {
+            "op": "playerBelief",
+            "factId": "F_LINH_RELEASE_IS_LIE",
+            "minStatus": "RUMOR"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_TURNED_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "belief",
+              "agent": "linh",
+              "factId": "F_LINH_RELEASE_IS_LIE",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "player"
+            },
+            {
+              "type": "npcTag",
+              "npc": "linh",
+              "tag": "T_C_TURNED_LINH",
+              "via": "witness"
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "trust",
+                "npc": "linh",
+                "cmp": ">=",
+                "value": 1
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "linh.reportsToThach",
+                  "value": false
+                },
+                {
+                  "type": "flag",
+                  "flag": "linh.doubleAgent",
+                  "value": true
+                },
+                {
+                  "type": "trust",
+                  "npc": "linh",
+                  "delta": 1
+                },
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_LINH_SAW_DUC_TAKE_PHONE",
+                  "status": "CONFIRMED",
+                  "believedValue": true,
+                  "source": "linh"
+                },
+                {
+                  "type": "belief",
+                  "agent": "player",
+                  "factId": "F_LINH_INFORMANT",
+                  "status": "CONFIRMED",
+                  "believedValue": true,
+                  "source": "linh"
+                }
+              ],
+              "else": [
+                {
+                  "type": "trust",
+                  "npc": "linh",
+                  "delta": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "forgive",
+          "label": {
+            "vi": "Không nói gì. Với ai."
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_FORGAVE_LINH"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "forgive"
+    },
+    {
+      "id": "EV_O_D6A_EVIDENCE_ROUTE",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 6,
+        "segment": "afternoon"
+      },
+      "location": "admin",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "evidence.outside",
+            "equals": false
+          },
+          {
+            "op": "playerBelief",
+            "factId": "F_MAI_CONTACT_OUTSIDE",
+            "minStatus": "OBSERVED"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "op": "flag",
+                "flag": "evidence.ledgerCopy",
+                "equals": true
+              },
+              {
+                "op": "flag",
+                "flag": "phone.location",
+                "equals": "player"
+              }
+            ]
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Bạn có thứ gì đó, và biết một số bên ngoài. Còn một buổi chiều."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "send",
+          "label": {
+            "vi": "Gửi đi. Tất cả."
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SENT_EVIDENCE_OUT"
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.outside",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "flag": "operator.cooperationProof",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 15
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "burn",
+          "label": {
+            "vi": "Đốt"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_BURNED_EVIDENCE"
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.ledgerCopy",
+              "value": false
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "burn"
+    },
+    {
+      "id": "EV_C_D6A_PHONE_LAST_CHANCE",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 6,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "player"
+          },
+          {
+            "op": "flag",
+            "flag": "evidence.outside",
+            "equals": false
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Pin còn đủ cho một cuộc. Hoặc không gọi."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "call",
+          "label": {
+            "vi": "Gọi"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_CALLED_OUTSIDE"
+            },
+            {
+              "type": "flag",
+              "flag": "evidence.outside",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "label": {
+            "vi": "Không. Quá nguy hiểm."
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_NEVER_CALLED"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "no"
+    },
+    {
+      "id": "EV_C_D6A_DUC_ASK",
+      "roles": [
+        "captive"
+      ],
+      "trigger": "forced",
+      "at": {
+        "day": 6,
+        "segment": "afternoon"
+      },
+      "location": "dorm",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "escape.routeKnown",
+            "equals": true
+          },
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Đức nhìn thấy bạn nhìn ra sân. 'Anh/chị định đi phải không? Cho em đi với.'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "yes",
+          "label": {
+            "vi": "'Ừ. Đêm nay.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_WILL_TAKE_DUC"
+            },
+            {
+              "type": "flag",
+              "flag": "escape.withDuc",
+              "value": true
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_WILL_TAKE_DUC",
+              "via": "witness"
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "label": {
+            "vi": "'Không có gì đâu.'"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_LEAVES_DUC"
+            },
+            {
+              "type": "trust",
+              "npc": "duc",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "npcTag",
+              "npc": "duc",
+              "tag": "T_C_LEAVES_DUC",
+              "via": "witness"
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "no"
+    },
+    {
+      "id": "EV_S_D6N_ESCAPE",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "optional",
+      "at": {
+        "day": 6,
+        "segment": "night"
+      },
+      "location": "yard",
+      "preconditions": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "escape.routeKnown",
+            "equals": true
+          },
+          {
+            "op": "flag",
+            "flag": "player.caught",
+            "equals": false
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "and",
+              "args": [
+                {
+                  "op": "role",
+                  "is": "captive"
+                },
+                {
+                  "op": "flag",
+                  "flag": "captive_pc.isolated",
+                  "equals": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "summary": {
+        "vi": "Đổi ca đêm. Khoảng tối ở tường đông sân kéo dài vài phút. Chỉ có một đêm này."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "go",
+          "label": {
+            "vi": "Đi"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_ESCAPE_ATTEMPTED"
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "and",
+                "args": [
+                  {
+                    "op": "stat",
+                    "stat": "suspicion",
+                    "cmp": "<",
+                    "value": 70
+                  },
+                  {
+                    "op": "stat",
+                    "stat": "stress",
+                    "cmp": "<",
+                    "value": 80
+                  },
+                  {
+                    "op": "or",
+                    "args": [
+                      {
+                        "op": "flag",
+                        "flag": "escape.vuWillOpen",
+                        "equals": true
+                      },
+                      {
+                        "op": "flag",
+                        "flag": "escape.withThach",
+                        "equals": true
+                      },
+                      {
+                        "op": "flag",
+                        "flag": "escape.withDuc",
+                        "equals": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "then": [
+                {
+                  "type": "tag",
+                  "tag": "T_ESCAPE_SUCCEEDED"
+                },
+                {
+                  "type": "flag",
+                  "flag": "player.escaped",
+                  "value": true
+                }
+              ],
+              "else": [
+                {
+                  "type": "tag",
+                  "tag": "T_ESCAPE_FAILED"
+                },
+                {
+                  "type": "flag",
+                  "flag": "player.caught",
+                  "value": true
+                },
+                {
+                  "type": "setStat",
+                  "stat": "suspicion",
+                  "value": 100
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 30
+                },
+                {
+                  "type": "if",
+                  "when": {
+                    "op": "role",
+                    "is": "operator"
+                  },
+                  "then": [
+                    {
+                      "type": "flag",
+                      "flag": "operator.marked",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "type": "if",
+                  "when": {
+                    "op": "role",
+                    "is": "captive"
+                  },
+                  "then": [
+                    {
+                      "type": "flag",
+                      "flag": "captive_pc.isolated",
+                      "value": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "stay",
+          "label": {
+            "vi": "Ở lại"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_STAYED_D6"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "stay"
+    },
+    {
+      "id": "EV_S_D7M_RAID",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "yard",
+      "summary": {
+        "vi": "Sáng ngày 7, cổng bị phá từ bên ngoài. Người lạ mặc đồng phục đếm người theo một danh sách ai đó đã gửi."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "text": {
+            "vi": "Danh sách họ cầm là danh sách từ chiếc điện thoại."
+          },
+          "grants": [
+            {
+              "type": "flag",
+              "flag": "raid.happened",
+              "value": true
+            },
+            {
+              "type": "witnessTag",
+              "tag": "T_W_SAW_RAID"
+            },
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_MAI_LEAKING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_SENT_EVIDENCE_OUT"
+          },
+          "text": {
+            "vi": "Người cầm danh sách đọc tên bạn ở cột 'nguồn'. Bạn được tách ra, không bị còng."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_RECOGNIZED_AS_SOURCE"
+            }
+          ]
+        },
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "or",
+            "args": [
+              {
+                "op": "flag",
+                "flag": "mai.dealIncludesAll",
+                "equals": true
+              },
+              {
+                "op": "tag",
+                "tag": "T_C_CALLED_OUTSIDE"
+              },
+              {
+                "op": "tag",
+                "tag": "T_O_SENT_EVIDENCE_OUT"
+              }
+            ]
+          },
+          "text": {
+            "vi": "Danh sách có đủ tên cả tầng."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_WHOLE_FLOOR_LISTED"
+            }
+          ]
+        },
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "not",
+            "arg": {
+              "op": "or",
+              "args": [
+                {
+                  "op": "flag",
+                  "flag": "mai.dealIncludesAll",
+                  "equals": true
+                },
+                {
+                  "op": "tag",
+                  "tag": "T_C_CALLED_OUTSIDE"
+                },
+                {
+                  "op": "tag",
+                  "tag": "T_O_SENT_EVIDENCE_OUT"
+                }
+              ]
+            }
+          },
+          "text": {
+            "vi": "Danh sách chỉ có một tên. 'M.' Những người còn lại được đếm như đồ vật, lần nữa."
+          },
+          "grants": [
+            {
+              "type": "witnessTag",
+              "tag": "T_W_ONLY_MAI_LISTED"
+            }
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "c_help",
+          "label": {
+            "vi": "Kéo những người còn lại ra chỗ được đếm"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_HELPED_OTHERS_RAID"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "c_hide",
+          "label": {
+            "vi": "Nấp cho đến khi xong"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_HID_RAID"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "o_surrender",
+          "label": {
+            "vi": "Bước ra với bằng chứng trong tay"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_SURRENDERED_WITH_EVIDENCE"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -10
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "flag",
+                "flag": "evidence.ledgerCopy",
+                "equals": true
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "operator.cooperationProof",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "flag",
+                "flag": "operator.cooperationProof",
+                "equals": true
+              },
+              "then": [
+                {
+                  "type": "if",
+                  "when": {
+                    "op": "not",
+                    "arg": {
+                      "op": "tag",
+                      "tag": "T_W_RECOGNIZED_AS_SOURCE"
+                    }
+                  },
+                  "then": [
+                    {
+                      "type": "witnessTag",
+                      "tag": "T_W_RECOGNIZED_AS_SOURCE"
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "type": "witnessTag",
+                  "tag": "T_W_DETAINED_AS_PERPETRATOR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "o_run",
+          "label": {
+            "vi": "Chạy theo Thạch"
+          },
+          "available": {
+            "op": "role",
+            "is": "operator"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_RAN_RAID"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 20
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "flag",
+                "flag": "operator.cooperationProof",
+                "equals": false
+              },
+              "then": [
+                {
+                  "type": "witnessTag",
+                  "tag": "T_W_DETAINED_AS_PERPETRATOR"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": {
+        "captive": "c_hide",
+        "operator": "o_surrender"
+      }
+    },
+    {
+      "id": "EV_S_D7M_LOADING_PREP",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "floor",
+      "summary": {
+        "vi": "Lệnh đóng gói. Không ai nói đi đâu. Mọi người đều hiểu."
+      },
+      "observations": [
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "text": {
+            "vi": "'Sau tuần này.' Đây là sau tuần này."
+          },
+          "grants": [
+            {
+              "type": "belief",
+              "agent": "player",
+              "factId": "F_TRANSFER_DAY7",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "witnessTag",
+              "tag": "T_W_SAW_LOADING_PREP"
+            }
+          ]
+        }
+      ],
+      "choices": [],
+      "abstractionCheck": true,
+      "preconditions": {
+        "op": "flag",
+        "flag": "transfer.prepStarted",
+        "equals": true
+      }
+    },
+    {
+      "id": "EV_O_D7M_CALLED_UP",
+      "roles": [
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "mgmt_hall",
+      "summary": {
+        "vi": "Thạch, hoặc người thay Thạch: 'Hợp đồng của cậu chuyển sang khu mới. Dưới dạng khác.'"
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "accept",
+          "label": {
+            "vi": "Không nói gì"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_ACCEPTED_DEMOTION"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 20
+            }
+          ]
+        },
+        {
+          "id": "blackmail",
+          "label": {
+            "vi": "'Tôi có bản sao sổ nợ.'"
+          },
+          "available": {
+            "op": "flag",
+            "flag": "evidence.ledgerCopy",
+            "equals": true
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_BLACKMAILED_THACH"
+            },
+            {
+              "type": "flag",
+              "flag": "operator.marked",
+              "value": false
+            },
+            {
+              "type": "stat",
+              "stat": "suspicion",
+              "delta": -30
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "beg",
+          "label": {
+            "vi": "Xin"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_BEGGED"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 30
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "defaultChoice": "accept"
+    },
+    {
+      "id": "EV_S_D7A_LOADING",
+      "roles": [
+        "captive",
+        "operator"
+      ],
+      "trigger": "scheduled",
+      "location": "yard",
+      "summary": {
+        "vi": "Xe đến. Mỗi người lên theo cách của mình."
+      },
+      "observations": [],
+      "choices": [
+        {
+          "id": "c_with_duc",
+          "label": {
+            "vi": "Lên cùng xe với Đức"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "captive"
+              },
+              {
+                "op": "or",
+                "args": [
+                  {
+                    "op": "npcStatus",
+                    "npc": "duc",
+                    "is": "present"
+                  },
+                  {
+                    "op": "npcStatus",
+                    "npc": "duc",
+                    "is": "demoted"
+                  }
+                ]
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_BOARDED_WITH_DUC"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
+          ]
+        },
+        {
+          "id": "c_alone",
+          "label": {
+            "vi": "Lên xe"
+          },
+          "available": {
+            "op": "role",
+            "is": "captive"
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_C_BOARDED_ALONE"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "o_cab",
+          "label": {
+            "vi": "Ngồi cabin"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "flag",
+                "flag": "operator.marked",
+                "equals": false
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_RODE_CAB"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "o_back",
+          "label": {
+            "vi": "Bị đưa lên thùng xe"
+          },
+          "available": {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "flag",
+                "flag": "operator.marked",
+                "equals": true
+              }
+            ]
+          },
+          "consequences": [
+            {
+              "type": "tag",
+              "tag": "T_O_RODE_BACK"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 20
+            }
+          ]
+        }
+      ],
+      "abstractionCheck": true,
+      "preconditions": {
+        "op": "flag",
+        "flag": "transfer.prepStarted",
+        "equals": true
+      },
+      "defaultChoice": {
+        "captive": "c_alone",
+        "operator": "o_cab"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "the-compound",
+  "version": "1.0.0-mvp",
+  "description": "THE COMPOUND — psychological survival / social simulation. MVP: deterministic engine, NPC intent layer, interactive Session (CLI + browser), replay-verified save/load. Zero runtime dependencies.",
+  "license": "MIT",
+  "keywords": [
+    "game",
+    "simulation",
+    "narrative",
+    "deterministic",
+    "zero-dependency",
+    "vietnamese"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huypkc/cam-scam.git"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "play": "node src/cli/play.mjs",
+    "start": "node src/server.mjs",
+    "verify": "node scripts/verify-mvp.mjs",
+    "trace": "node scripts/trace.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "homepage": "https://github.com/huypkc/cam-scam#readme"
+}

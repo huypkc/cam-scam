@@ -1,0 +1,599 @@
+{
+  "_doc": "NPC definitions, relationship graph, and knowledge propagation rules. NPCs know ONLY what is listed here initially, plus what background occurrences, events, and propagation rules give them. MVP: propagation rules carry `priority`; the engine orders them by (priority, id), never by file order (audit O13).",
+  "npcs": [
+    {
+      "id": "thach",
+      "name": {
+        "vi": "Thạch"
+      },
+      "role": {
+        "vi": "Quản lý tầng"
+      },
+      "publicFace": {
+        "vi": "Điềm tĩnh, thực dụng. 'Đạt số thì không ai phải khổ.'"
+      },
+      "privateMotive": {
+        "vi": "Biết tầng sắp bị chuyển giao; muốn rời đi trước với đủ tiền."
+      },
+      "initialTrust": {
+        "captive": 0,
+        "operator": 1
+      },
+      "initialBeliefs": [
+        {
+          "factId": "F_TRANSFER_DAY7",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_RAID_IMMINENT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_THACH_PLANS_OWN_EXIT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_LINH_INFORMANT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_LINH_RELEASE_IS_LIE",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_VU_WAS_CAPTIVE",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_MAI_HOLDS_DEBT_LEDGER",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_OPERATOR_PC_INDEBTED",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "vu",
+      "name": {
+        "vi": "Vũ"
+      },
+      "role": {
+        "vi": "Bảo vệ / thực thi"
+      },
+      "publicFace": {
+        "vi": "Lạnh, đúng quy trình, thích thể hiện quyền."
+      },
+      "privateMotive": {
+        "vi": "Sợ bị 'hạ xuống' lại thành người bị giam. Thấy mình trong Đức."
+      },
+      "initialTrust": {
+        "captive": -1,
+        "operator": 0
+      },
+      "initialBeliefs": [
+        {
+          "factId": "F_VU_WAS_CAPTIVE",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_VU_KNOWS_BLINDSPOT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_LINH_INFORMANT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_MAI_HOLDS_DEBT_LEDGER",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_LINH_RELEASE_IS_LIE",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "self",
+          "_doc": "Vũ suy ra từ việc chính anh ta và người khác từng được hứa y hệt."
+        }
+      ]
+    },
+    {
+      "id": "mai",
+      "name": {
+        "vi": "Mai"
+      },
+      "role": {
+        "vi": "Hành chính / sổ nợ"
+      },
+      "publicFace": {
+        "vi": "Lạnh lùng, chính xác. 'Tôi chỉ ghi số.'"
+      },
+      "privateMotive": {
+        "vi": "Cũng bị lừa vào; đang đổi thông tin chuyển giao lấy một cuộc giải cứu cho riêng mình."
+      },
+      "initialTrust": {
+        "captive": 0,
+        "operator": 0
+      },
+      "initialBeliefs": [
+        {
+          "factId": "F_TRANSFER_DAY7",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_RAID_IMMINENT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_PHONE_OWNER_MAI",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_MAI_LEAKING",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_MAI_CONTACT_OUTSIDE",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_PHONE_CONTAINS_TRANSFER_PROOF",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_LINH_INFORMANT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_MAI_HOLDS_DEBT_LEDGER",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_DEBT_LEDGER_PROVES_COERCION",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_OPERATOR_PC_INDEBTED",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_VU_WAS_CAPTIVE",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    },
+    {
+      "id": "linh",
+      "name": {
+        "vi": "Linh"
+      },
+      "role": {
+        "vi": "Người bị giam kỳ cựu (5 tháng)"
+      },
+      "publicFace": {
+        "vi": "Ấm áp, chỉ dẫn người mới. 'Cứ tin chị.'"
+      },
+      "privateMotive": {
+        "vi": "Báo tin cho Thạch đổi lấy 'ngày thả'. Tự nhủ chỉ báo 'chuyện nhỏ' để cứu người khác khỏi 'chuyện lớn'."
+      },
+      "initialTrust": {
+        "captive": 1,
+        "operator": 0
+      },
+      "initialBeliefs": [
+        {
+          "factId": "F_LINH_INFORMANT",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "factId": "F_LINH_RELEASE_DATE_REAL",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "thach",
+          "misinformation": true
+        }
+      ]
+    },
+    {
+      "id": "duc",
+      "name": {
+        "vi": "Đức"
+      },
+      "role": {
+        "vi": "Người bị giam mới (19 tuổi)"
+      },
+      "publicFace": {
+        "vi": "Im lặng, ngoan ngoãn, sợ."
+      },
+      "privateMotive": {
+        "vi": "Chỉ muốn gọi một cuộc cho mẹ."
+      },
+      "initialTrust": {
+        "captive": 1,
+        "operator": -1
+      },
+      "initialBeliefs": [
+        {
+          "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "self"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "linh",
+      "to": "thach",
+      "channel": "reports_to",
+      "delay": 1,
+      "note": {
+        "vi": "Giấy báo qua Vũ mỗi tối."
+      }
+    },
+    {
+      "from": "vu",
+      "to": "thach",
+      "channel": "reports_to",
+      "delay": 3,
+      "note": {
+        "vi": "Vũ do dự; báo chậm một ngày."
+      }
+    },
+    {
+      "from": "mai",
+      "to": "thach",
+      "channel": "reports_to",
+      "delay": 1,
+      "note": {
+        "vi": "Chỉ báo việc giấy tờ; không bao giờ tự nộp bí mật."
+      }
+    },
+    {
+      "from": "thach",
+      "to": "vu",
+      "channel": "commands",
+      "delay": 0
+    },
+    {
+      "from": "thach",
+      "to": "mai",
+      "channel": "commands",
+      "delay": 0
+    },
+    {
+      "from": "duc",
+      "to": "linh",
+      "channel": "confides_in",
+      "delay": 0
+    },
+    {
+      "from": "vu",
+      "to": "duc",
+      "channel": "protects",
+      "delay": 0,
+      "note": {
+        "vi": "Ngầm, không bao giờ nói ra."
+      }
+    },
+    {
+      "from": "vu",
+      "to": "mai",
+      "channel": "resents",
+      "delay": 0,
+      "note": {
+        "vi": "Mai giữ sổ nợ của Vũ."
+      }
+    }
+  ],
+  "propagation": [
+    {
+      "id": "PR_LINH_TIP_CAPTIVE",
+      "kind": "assert",
+      "from": "linh",
+      "to": "thach",
+      "at": 8,
+      "once": true,
+      "_doc": "Captive run only. In the operator run the same note is delivered through the player (EV_O_D3N_LINH_TIP). Linh deflects from Đức by naming the stranger, unless she trusts the newcomer and saw nothing suspicious.",
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "flag",
+            "flag": "linh.reportsToThach",
+            "equals": true
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "op": "trust",
+                "npc": "linh",
+                "cmp": "<",
+                "value": 2
+              },
+              {
+                "op": "npcKnowsTag",
+                "npc": "linh",
+                "tag": "T_C_COVERED_DUC_SEARCH"
+              }
+            ]
+          }
+        ]
+      },
+      "factId": "F_CAPTIVE_PC_NEAR_ADMIN_D3",
+      "believedValue": true,
+      "misinformation": true,
+      "also": [
+        {
+          "type": "flag",
+          "flag": "thach.hasCaptiveTip",
+          "value": true
+        }
+      ],
+      "priority": 10
+    },
+    {
+      "id": "PR_LINH_RELAY_CAPTIVE_TAGS",
+      "kind": "relay",
+      "from": "linh",
+      "to": "thach",
+      "delay": 1,
+      "when": {
+        "op": "flag",
+        "flag": "linh.reportsToThach",
+        "equals": true
+      },
+      "tags": [
+        "T_C_COVERED_DUC_SEARCH",
+        "T_C_CONFRONTED_LINH",
+        "T_C_SPOKE_FOR_DUC"
+      ],
+      "priority": 20
+    },
+    {
+      "id": "PR_DUC_CONFIDES_LINH",
+      "kind": "relay",
+      "from": "duc",
+      "to": "linh",
+      "delay": 0,
+      "once": true,
+      "_doc": "D4 afternoon: Đức tells Linh where 'it' is — unless the captive warned him about her.",
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "segment",
+            "cmp": ">=",
+            "value": 10
+          },
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "npcKnowsTag",
+              "npc": "duc",
+              "tag": "T_C_WARNED_DUC_ABOUT_LINH"
+            }
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          }
+        ]
+      },
+      "facts": [
+        "F_PHONE_EXISTS",
+        "F_PHONE_TAKEN_BY_DUC",
+        "F_PHONE_HIDDEN_DORM_CEILING"
+      ],
+      "priority": 30
+    },
+    {
+      "id": "PR_LINH_RELAY_LOCATION",
+      "kind": "relay",
+      "from": "linh",
+      "to": "thach",
+      "delay": 1,
+      "_doc": "Linh reports the LOCATION, not the thief — 'chuyện nhỏ'. Thạch draws his own (wrong) conclusion in R_THACH_RAID_CEILING.",
+      "when": {
+        "op": "flag",
+        "flag": "linh.reportsToThach",
+        "equals": true
+      },
+      "facts": [
+        "F_PHONE_HIDDEN_DORM_CEILING"
+      ],
+      "priority": 40
+    },
+    {
+      "id": "PR_LINH_DOUBLE_AGENT_FEED",
+      "kind": "assert",
+      "from": "linh",
+      "to": "thach",
+      "at": 16,
+      "once": true,
+      "_doc": "If the captive turned Linh (D6 afternoon), that same evening she tells Thạch the newcomer never had the phone (true — she OBSERVED it) and withdraws her old tip: Thạch relaxes his watch before the D6 escape window (audit F-15 fix).",
+      "when": {
+        "op": "flag",
+        "flag": "linh.doubleAgent",
+        "equals": true
+      },
+      "factId": "F_PHONE_TAKEN_BY_CAPTIVE_PC",
+      "believedValue": false,
+      "also": [
+        {
+          "type": "flag",
+          "flag": "thach.hasCaptiveTip",
+          "value": false
+        },
+        {
+          "type": "stat",
+          "stat": "suspicion",
+          "delta": -15
+        }
+      ],
+      "priority": 50
+    },
+    {
+      "id": "PR_VU_REPORTS_PHONE",
+      "kind": "assert",
+      "from": "vu",
+      "to": "thach",
+      "at": 14,
+      "once": true,
+      "_doc": "Vũ sits on the phone for a day, then hands it up — unless someone gave him a reason not to.",
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "vu_locker"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "and",
+              "args": [
+                {
+                  "op": "role",
+                  "is": "operator"
+                },
+                {
+                  "op": "tag",
+                  "tag": "T_O_TOLD_VU_HIDE"
+                }
+              ]
+            }
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "and",
+              "args": [
+                {
+                  "op": "role",
+                  "is": "captive"
+                },
+                {
+                  "op": "trust",
+                  "npc": "vu",
+                  "cmp": ">=",
+                  "value": 2
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+      "believedValue": true,
+      "also": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "thach"
+        }
+      ],
+      "priority": 60
+    },
+    {
+      "id": "PR_THACH_TELLS_VU_SCAPEGOAT",
+      "kind": "relay",
+      "from": "thach",
+      "to": "vu",
+      "delay": 0,
+      "once": true,
+      "when": {
+        "op": "flag",
+        "flag": "duc.scapegoated",
+        "equals": true
+      },
+      "facts": [
+        "F_DUC_IS_THE_LEAK"
+      ],
+      "priority": 70
+    },
+    {
+      "id": "PR_THACH_TELLS_VU_TRANSFER",
+      "kind": "assert",
+      "from": "thach",
+      "to": "vu",
+      "at": 18,
+      "once": true,
+      "when": {
+        "op": "always"
+      },
+      "factId": "F_TRANSFER_DAY7",
+      "believedValue": true,
+      "priority": 80,
+      "_doc": "Night 6: Thạch tells Vũ about the transfer. If a raid is coming the game ends at D7 morning before this matters; no world-only flag is read (closes the Phase 3 visibility exception)."
+    }
+  ]
+}

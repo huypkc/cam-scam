@@ -1,0 +1,874 @@
+{
+  "_doc": "PHASE 3 — NPC INTENT LAYER (PO decisions P1, P2). Drives are motives as data; actions are DelayedRules owned by an NPC, evaluated at the convergence point after propagation and before global delayed rules, ordered by (priority, id), at most one action per NPC per convergence point. `when` may only read what the actor can know (visibility contract in src/engine/types.ts §9b, enforced by tests/intents.test.mjs). `effects` are the physical resolution and may read `touches`. `supersedes` lists the Phase 2 rules this action replaces when the bundle is loaded; the Phase 2 rules stay in their files so reviewers can diff behaviour (evaluator option `intents: false`). MVP: A_MAI_SEARCH_DORM (C2) and A_LINH_HANDS_PHONE_UP (F-06) added; the Phase 3 visibility exception is closed (PR_THACH_TELLS_VU_TRANSFER no longer reads a hidden flag). `allowReadBeforeWrite` (audit §12 T-G): explicit list of (reader, writer, flag) pairs where a reader may legitimately run before a writer of the same flag in one convergence pass; tests/content-gates.test.mjs verifies each entry names a real overlapping pair, carries a `why`, and is value-disjoint (the writer never writes a value the reader tests for).",
+  "drives": [
+    {
+      "id": "D_THACH_FIND_LEAK",
+      "npc": "thach",
+      "priority": 1,
+      "name": {
+        "vi": "Tìm kẻ rò rỉ"
+      },
+      "description": {
+        "vi": "Ông Chủ đã báo có rò rỉ. Thạch phải nộp một cái tên trước chuyển giao."
+      }
+    },
+    {
+      "id": "D_THACH_EXIT_WITH_MONEY",
+      "npc": "thach",
+      "priority": 2,
+      "name": {
+        "vi": "Rời đi với tiền"
+      },
+      "description": {
+        "vi": "Tuyển người tuân thủ để có người giúp việc lúc rời đi."
+      }
+    },
+    {
+      "id": "D_VU_STAY_ABOVE",
+      "npc": "vu",
+      "priority": 1,
+      "name": {
+        "vi": "Không bị hạ xuống"
+      },
+      "description": {
+        "vi": "Làm đúng quy trình, nộp lên những gì tìm thấy."
+      }
+    },
+    {
+      "id": "D_VU_PROTECT_DUC",
+      "npc": "vu",
+      "priority": 2,
+      "name": {
+        "vi": "Che cho Đức"
+      },
+      "description": {
+        "vi": "Thấy mình trong Đức. Chỉ thắng STAY_ABOVE khi có ai đó cho anh ta một lý do."
+      }
+    },
+    {
+      "id": "D_MAI_SELF_RESCUE",
+      "npc": "mai",
+      "priority": 1,
+      "name": {
+        "vi": "Tự cứu mình"
+      },
+      "description": {
+        "vi": "Lấy lại điện thoại hoặc tìm người có thể giúp trước ngày 7."
+      }
+    },
+    {
+      "id": "D_LINH_EARN_RELEASE",
+      "npc": "linh",
+      "priority": 1,
+      "name": {
+        "vi": "Kiếm ngày thả"
+      },
+      "description": {
+        "vi": "Báo 'chuyện nhỏ' cho Thạch. Thể hiện bằng PR_LINH_* (giữ nguyên Phase 2)."
+      }
+    },
+    {
+      "id": "D_LINH_PROTECT_DUC",
+      "npc": "linh",
+      "priority": 2,
+      "name": {
+        "vi": "Không nộp Đức"
+      },
+      "description": {
+        "vi": "Báo chỗ, không báo người. Thể hiện bằng việc PR_LINH_RELAY_LOCATION chỉ relay fact chỗ giấu."
+      }
+    },
+    {
+      "id": "D_DUC_CALL_MOTHER",
+      "npc": "duc",
+      "priority": 1,
+      "name": {
+        "vi": "Gọi cho mẹ"
+      },
+      "description": {
+        "vi": "Thử gọi khi điện thoại trong tầm với."
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "A_THACH_RAID_WHERE_I_BELIEVE",
+      "actor": "thach",
+      "drive": "D_THACH_FIND_LEAK",
+      "description": {
+        "vi": "Thạch cho lục nơi anh ta TIN điện thoại đang giấu. Nếu có thật thì tịch thu. Quy tội cho người anh ta có lý do để tin — Đức nếu ai đó đã nhắc tên Đức hoặc Linh báo người mới che giường Đức; không ai nếu chỉ biết chỗ."
+      },
+      "supersedes": [
+        "R_THACH_RAID_CEILING",
+        "R_THACH_RECOVERS_PHONE_QUIET"
+      ],
+      "reads": {
+        "facts": [
+          "F_PHONE_HIDDEN_DORM_CEILING"
+        ]
+      },
+      "when": {
+        "op": "npcBelieves",
+        "npc": "thach",
+        "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+        "minStatus": "RUMOR",
+        "believedValue": true
+      },
+      "touches": {
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "earliest": 11,
+      "latest": 12,
+      "once": true,
+      "priority": 10,
+      "effects": [
+        {
+          "type": "if",
+          "when": {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          },
+          "then": [
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "thach"
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_EXISTS",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "thach",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "if",
+              "when": {
+                "op": "and",
+                "args": [
+                  {
+                    "op": "npcStatus",
+                    "npc": "duc",
+                    "is": "present"
+                  },
+                  {
+                    "op": "or",
+                    "args": [
+                      {
+                        "op": "npcBelieves",
+                        "npc": "thach",
+                        "factId": "F_PHONE_TAKEN_BY_DUC",
+                        "minStatus": "RUMOR",
+                        "believedValue": true
+                      },
+                      {
+                        "op": "npcKnowsTag",
+                        "npc": "thach",
+                        "tag": "T_C_COVERED_DUC_SEARCH"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "then": [
+                {
+                  "type": "flag",
+                  "flag": "duc.scapegoated",
+                  "value": true
+                },
+                {
+                  "type": "npcStatus",
+                  "npc": "duc",
+                  "status": "isolated"
+                },
+                {
+                  "type": "belief",
+                  "agent": "thach",
+                  "factId": "F_PHONE_TAKEN_BY_DUC",
+                  "status": "RUMOR",
+                  "believedValue": true,
+                  "source": "self"
+                },
+                {
+                  "type": "belief",
+                  "agent": "thach",
+                  "factId": "F_DUC_IS_THE_LEAK",
+                  "status": "RUMOR",
+                  "believedValue": true,
+                  "source": "self",
+                  "misinformation": true
+                },
+                {
+                  "type": "schedule",
+                  "eventId": "EV_S_D5A_DUC_TAKEN",
+                  "at": 13
+                }
+              ],
+              "else": [
+                {
+                  "type": "if",
+                  "when": {
+                    "op": "and",
+                    "args": [
+                      {
+                        "op": "role",
+                        "is": "captive"
+                      },
+                      {
+                        "op": "flag",
+                        "flag": "thach.hasCaptiveTip",
+                        "equals": true
+                      }
+                    ]
+                  },
+                  "then": [
+                    {
+                      "type": "stat",
+                      "stat": "suspicion",
+                      "delta": 15
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A_VU_ROUTINE_CEILING_CHECK",
+      "actor": "vu",
+      "drive": "D_VU_STAY_ABOVE",
+      "description": {
+        "vi": "Kiểm tra trần định kỳ sáng D5. Quyết định không cần biết gì; kết quả phụ thuộc điện thoại có còn đó không."
+      },
+      "supersedes": [
+        "R_VU_CEILING_CHECK"
+      ],
+      "reads": {},
+      "when": {
+        "op": "always"
+      },
+      "touches": {
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "earliest": 12,
+      "latest": 12,
+      "once": true,
+      "priority": 20,
+      "effects": [
+        {
+          "type": "if",
+          "when": {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          },
+          "then": [
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "vu_locker"
+            },
+            {
+              "type": "belief",
+              "agent": "vu",
+              "factId": "F_PHONE_EXISTS",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "vu",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "belief",
+              "agent": "vu",
+              "factId": "F_PHONE_TAKEN_BY_DUC",
+              "status": "RUMOR",
+              "believedValue": true,
+              "source": "self"
+            },
+            {
+              "type": "schedule",
+              "eventId": "EV_S_D5A_PHONE_FOUND_BY_VU",
+              "at": 13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A_VU_SHIELD_PHONE",
+      "actor": "vu",
+      "drive": "D_VU_PROTECT_DUC",
+      "description": {
+        "vi": "Vũ giữ im thay vì nộp — chỉ khi ai đó cho anh ta một lý do: người mới anh ta đã tin (trust ≥ 2), Operator bảo giữ, hoặc anh ta biết chắc Đức chỉ muốn gọi cho mẹ."
+      },
+      "reads": {
+        "flags": [
+          "phone.location"
+        ],
+        "facts": [
+          "F_DUC_WANTS_TO_CALL_MOTHER"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "vu_locker"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": "role",
+                    "is": "captive"
+                  },
+                  {
+                    "op": "trust",
+                    "npc": "vu",
+                    "cmp": ">=",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": "role",
+                    "is": "operator"
+                  },
+                  {
+                    "op": "npcKnowsTag",
+                    "npc": "vu",
+                    "tag": "T_O_TOLD_VU_HIDE"
+                  }
+                ]
+              },
+              {
+                "op": "npcBelieves",
+                "npc": "vu",
+                "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+                "minStatus": "CONFIRMED",
+                "believedValue": true
+              }
+            ]
+          }
+        ]
+      },
+      "earliest": 13,
+      "latest": 14,
+      "once": true,
+      "priority": 14,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "vu.shieldingPhone",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "A_VU_HAND_UP",
+      "actor": "vu",
+      "drive": "D_VU_STAY_ABOVE",
+      "description": {
+        "vi": "Vũ ngồi trên điện thoại một ngày rồi nộp lên — trừ khi đã quyết định che (A_VU_SHIELD_PHONE)."
+      },
+      "supersedes": [
+        "PR_VU_REPORTS_PHONE"
+      ],
+      "reads": {
+        "flags": [
+          "phone.location",
+          "vu.shieldingPhone"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "vu_locker"
+          },
+          {
+            "op": "flag",
+            "flag": "vu.shieldingPhone",
+            "equals": false
+          }
+        ]
+      },
+      "earliest": 14,
+      "latest": 14,
+      "once": true,
+      "priority": 15,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "thach"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "vu"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "vu"
+        }
+      ]
+    },
+    {
+      "id": "A_VU_SEES_DUC_CALL",
+      "actor": "vu",
+      "drive": "D_VU_PROTECT_DUC",
+      "description": {
+        "vi": "Vũ thấy Đức cầm điện thoại ngoài sân và không báo. Hỏi Đức ai đưa; nếu là người mới, anh ta nhớ."
+      },
+      "supersedes": [
+        "R_DUC_CALLED_HOME"
+      ],
+      "reads": {
+        "flags": [
+          "duc.calledHome"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "flag",
+            "flag": "duc.calledHome",
+            "equals": true
+          }
+        ]
+      },
+      "touches": {
+        "flags": [
+          "duc.calledHome"
+        ],
+        "tags": [
+          "T_C_GAVE_DUC_CALL"
+        ]
+      },
+      "earliest": 13,
+      "latest": 14,
+      "once": true,
+      "priority": 30,
+      "effects": [
+        {
+          "type": "belief",
+          "agent": "vu",
+          "factId": "F_DUC_WANTS_TO_CALL_MOTHER",
+          "status": "OBSERVED",
+          "believedValue": true,
+          "source": "self"
+        },
+        {
+          "type": "if",
+          "when": {
+            "op": "tag",
+            "tag": "T_C_GAVE_DUC_CALL"
+          },
+          "then": [
+            {
+              "type": "trust",
+              "npc": "vu",
+              "delta": 1
+            },
+            {
+              "type": "npcTag",
+              "npc": "vu",
+              "tag": "T_C_GAVE_DUC_CALL",
+              "via": "told",
+              "source": "duc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A_DUC_TRY_CALL",
+      "actor": "duc",
+      "drive": "D_DUC_CALL_MOTHER",
+      "description": {
+        "vi": "Điện thoại ở hốc tường sân (Đức tự giấu cùng người mới) và chưa ai dùng → chiều D5 Đức tự thử gọi. Hệ quả phát sinh: không ai viết sẵn kết quả này."
+      },
+      "reads": {
+        "flags": [
+          "phone.location",
+          "duc.calledHome"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "npcStatus",
+            "npc": "duc",
+            "is": "present"
+          },
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "yard_cache"
+          },
+          {
+            "op": "flag",
+            "flag": "duc.calledHome",
+            "equals": false
+          }
+        ]
+      },
+      "earliest": 13,
+      "latest": 13,
+      "once": true,
+      "priority": 25,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "duc.calledHome",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "A_MAI_APPROACH_OPERATOR",
+      "actor": "mai",
+      "drive": "D_MAI_SELF_RESCUE",
+      "description": {
+        "vi": "Operator đã hỏi 'chị mất gì' và Mai chưa bị tố trước mặt cô → Mai tìm đến đề nghị D5 chiều. Khác Phase 2: Mai KHÔNG biết Operator đã chỉ điểm cô với Thạch (T_O_POINTED_AT_MAI) nên vẫn tới."
+      },
+      "supersedes": [
+        "R_MAI_DEAL"
+      ],
+      "reads": {},
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "operator"
+          },
+          {
+            "op": "npcKnowsTag",
+            "npc": "mai",
+            "tag": "T_O_CONFRONTED_MAI"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "npcKnowsTag",
+              "npc": "mai",
+              "tag": "T_O_REPORTED_MAI"
+            }
+          },
+          {
+            "op": "npcStatus",
+            "npc": "mai",
+            "is": "present"
+          }
+        ]
+      },
+      "earliest": 12,
+      "latest": 12,
+      "once": true,
+      "priority": 30,
+      "effects": [
+        {
+          "type": "schedule",
+          "eventId": "EV_O_D5A_MAI_DEAL",
+          "at": 13
+        }
+      ]
+    },
+    {
+      "id": "A_THACH_RECRUIT",
+      "actor": "thach",
+      "drive": "D_THACH_EXIT_WITH_MONEY",
+      "description": {
+        "vi": "Người mới tuân thủ cao (quota ≥ 3) hoặc đã bị để mắt nặng (SUSPICION ≥ 70, con số của tổ chức) và chưa bị cách ly → Thạch đề nghị 'lên team' sáng D6."
+      },
+      "supersedes": [
+        "R_THACH_DEAL_OFFER"
+      ],
+      "reads": {
+        "flags": [
+          "quota.score",
+          "captive_pc.isolated"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "role",
+            "is": "captive"
+          },
+          {
+            "op": "flag",
+            "flag": "captive_pc.isolated",
+            "equals": false
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "op": "flagCmp",
+                "flag": "quota.score",
+                "cmp": ">=",
+                "value": 3
+              },
+              {
+                "op": "stat",
+                "stat": "suspicion",
+                "cmp": ">=",
+                "value": 70
+              }
+            ]
+          }
+        ]
+      },
+      "earliest": 14,
+      "latest": 14,
+      "once": true,
+      "priority": 30,
+      "effects": [
+        {
+          "type": "schedule",
+          "eventId": "EV_C_D6M_THACH_DEAL",
+          "at": 15
+        }
+      ]
+    },
+    {
+      "id": "A_MAI_SEARCH_DORM",
+      "actor": "mai",
+      "drive": "D_MAI_SELF_RESCUE",
+      "description": {
+        "vi": "Chiều D4, đúng giờ cô vẫn rời bàn, Mai vào ký túc lúc vắng người và lục nơi cô suy ra điện thoại đang giấu. Cô chỉ dám làm thế khi Thạch chưa có nghi phạm nào (không có tin báo về người mới — cô làm giấy tờ cho mọi cuộc thẩm vấn nên cô biết), chưa ai thấy cô hoảng (Operator chưa hỏi \"chị mất gì\") và Thạch chưa biết điện thoại là của cô. Nếu điện thoại còn trên trần, cô lấy lại trước khi Linh kịp báo chỗ cho Thạch."
+      },
+      "supersedes": [],
+      "reads": {
+        "facts": [
+          "F_PHONE_HIDDEN_DORM_CEILING"
+        ],
+        "flags": [
+          "mai.exposed",
+          "thach.hasCaptiveTip"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "npcStatus",
+            "npc": "mai",
+            "is": "present"
+          },
+          {
+            "op": "npcBelieves",
+            "npc": "mai",
+            "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+            "minStatus": "RUMOR",
+            "believedValue": true
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "npcKnowsTag",
+              "npc": "mai",
+              "tag": "T_O_CONFRONTED_MAI"
+            }
+          },
+          {
+            "op": "flag",
+            "flag": "mai.exposed",
+            "equals": false
+          },
+          {
+            "op": "flag",
+            "flag": "thach.hasCaptiveTip",
+            "equals": false
+          }
+        ]
+      },
+      "touches": {
+        "flags": [
+          "phone.location"
+        ]
+      },
+      "earliest": 10,
+      "latest": 10,
+      "once": true,
+      "priority": 5,
+      "effects": [
+        {
+          "type": "if",
+          "when": {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "dorm_ceiling"
+          },
+          "then": [
+            {
+              "type": "flag",
+              "flag": "phone.location",
+              "value": "mai"
+            },
+            {
+              "type": "belief",
+              "agent": "mai",
+              "factId": "F_PHONE_HIDDEN_DORM_CEILING",
+              "status": "CONFIRMED",
+              "believedValue": true,
+              "source": "self"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A_LINH_HANDS_PHONE_UP",
+      "actor": "linh",
+      "drive": "D_LINH_EARN_RELEASE",
+      "description": {
+        "vi": "Nếu người mới đưa điện thoại cho Linh \"giữ hộ\" và kênh báo tin của cô còn hoạt động, sáng hôm sau nó lên bàn Thạch cùng một câu: \"người mới đưa em\". Thạch tin người mới là kẻ giấu máy; cái giá là SUSPICION tăng mạnh. Đây là cái giá của việc tin nhầm người (audit F-06)."
+      },
+      "supersedes": [],
+      "reads": {
+        "flags": [
+          "phone.location",
+          "linh.reportsToThach"
+        ]
+      },
+      "when": {
+        "op": "and",
+        "args": [
+          {
+            "op": "flag",
+            "flag": "phone.location",
+            "equals": "linh"
+          },
+          {
+            "op": "flag",
+            "flag": "linh.reportsToThach",
+            "equals": true
+          }
+        ]
+      },
+      "touches": {},
+      "earliest": 12,
+      "latest": 12,
+      "once": true,
+      "priority": 22,
+      "effects": [
+        {
+          "type": "flag",
+          "flag": "phone.location",
+          "value": "thach"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_EXISTS",
+          "status": "CONFIRMED",
+          "believedValue": true,
+          "source": "linh"
+        },
+        {
+          "type": "belief",
+          "agent": "thach",
+          "factId": "F_PHONE_TAKEN_BY_CAPTIVE_PC",
+          "status": "RUMOR",
+          "believedValue": true,
+          "source": "linh",
+          "misinformation": true
+        },
+        {
+          "type": "stat",
+          "stat": "suspicion",
+          "delta": 30
+        },
+        {
+          "type": "witnessTag",
+          "tag": "T_W_CALLED_ABOUT_PHONE"
+        }
+      ],
+      "_orderingNote": "priority 22 (was 8): runs after A_THACH_RAID_WHERE_I_BELIEVE (10) and A_VU_ROUTINE_CEILING_CHECK (20), the two seg-12 writers of phone.location, so the T-G write-before-read rule holds without a declaration. Outcome is unchanged: both writers only act when the phone is on the dorm ceiling, this action only when it is with Linh."
+    }
+  ],
+  "visibilityExceptions": [],
+  "allowReadBeforeWrite": [
+    {
+      "reader": "A_VU_SHIELD_PHONE",
+      "writer": "R_SUSPICION_SWEEP",
+      "flag": "phone.location",
+      "why": "The sweep only fires while the phone is with the player and moves it to Thạch; the reader needs it in Vũ's locker. Values are disjoint, so no stale read is possible."
+    },
+    {
+      "reader": "A_VU_HAND_UP",
+      "writer": "R_SUSPICION_SWEEP",
+      "flag": "phone.location",
+      "why": "Same as above: sweep writes `thach`, reader needs `vu_locker`."
+    },
+    {
+      "reader": "A_DUC_TRY_CALL",
+      "writer": "R_SUSPICION_SWEEP",
+      "flag": "phone.location",
+      "why": "Sweep writes `thach`, reader needs `yard_cache`."
+    },
+    {
+      "reader": "A_LINH_HANDS_PHONE_UP",
+      "writer": "R_SUSPICION_SWEEP",
+      "flag": "phone.location",
+      "why": "Sweep writes `thach`, reader needs `linh`."
+    },
+    {
+      "reader": "A_VU_SHIELD_PHONE",
+      "writer": "A_VU_HAND_UP",
+      "flag": "phone.location",
+      "why": "Both are Vũ's actions: the engine fires at most one action per actor per convergence point, and SHIELD (14) must be evaluated before HAND_UP (15) so that a reason to protect Đức beats the routine hand-up (CONFLICT test). HAND_UP writes `thach`; SHIELD needs `vu_locker`."
+    }
+  ]
+}

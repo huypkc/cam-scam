@@ -1,0 +1,452 @@
+{
+  "_doc": "Four world endings, machine-readable. Checked after the events of each `checkAt` segment, before convergence. Lowest priority number wins. E_TRANSFER is the fallback. Epilogue variants per NPC are Phase 3 content; `epilogueTags` lists tags that exist only to select those variants. MVP: every witness path is self-sufficient — run with each event's defaultChoice as fill-in it reaches its ending (tests/evaluator.test.mjs GATE F).",
+  "endings": [
+    {
+      "id": "E_ESCAPE",
+      "title": {
+        "vi": "THOÁT"
+      },
+      "checkAt": [
+        17
+      ],
+      "priority": 1,
+      "condition": {
+        "op": "flag",
+        "flag": "player.escaped",
+        "equals": true
+      },
+      "epilogueTags": [
+        "T_ESCAPE_SUCCEEDED",
+        "T_C_WILL_TAKE_DUC",
+        "T_C_LEAVES_DUC",
+        "T_O_ACCEPTED_THACH_EXIT",
+        "T_O_FEIGNED_ACCEPT",
+        "T_C_SIGNED_QUIETLY",
+        "T_O_KEPT_VU_SECRET",
+        "T_C_LISTENED_VU",
+        "T_C_FORGAVE_LINH"
+      ],
+      "witnessPaths": [
+        {
+          "role": "captive",
+          "steps": [
+            {
+              "eventId": "EV_S_D1M_INTAKE",
+              "choiceId": "c_sign"
+            },
+            {
+              "eventId": "EV_C_D1A_LINH_APPROACH",
+              "choiceId": "open"
+            },
+            {
+              "eventId": "EV_C_D1N_PATROL",
+              "choiceId": "watch"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "slack"
+            },
+            {
+              "eventId": "EV_C_D2N_LINH_PROBE",
+              "choiceId": "tell"
+            },
+            {
+              "eventId": "EV_C_D3A_SEARCH",
+              "choiceId": "aside"
+            },
+            {
+              "eventId": "EV_C_D4N_PATROL2",
+              "choiceId": "watch"
+            },
+            {
+              "eventId": "EV_C_D6A_DUC_ASK",
+              "choiceId": "no"
+            },
+            {
+              "eventId": "EV_S_D6N_ESCAPE",
+              "choiceId": "go"
+            }
+          ],
+          "_doc": "Self-sufficient (MVP): `slack` keeps STRESS < 80, `open` keeps Linh from tipping, leaving Đức behind needs no help from Vũ."
+        },
+        {
+          "role": "operator",
+          "steps": [
+            {
+              "eventId": "EV_S_D1M_INTAKE",
+              "choiceId": "o_harsh"
+            },
+            {
+              "eventId": "EV_O_D6M_THACH_OFFER",
+              "choiceId": "accept"
+            },
+            {
+              "eventId": "EV_S_D6N_ESCAPE",
+              "choiceId": "go"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E_EXPOSURE",
+      "title": {
+        "vi": "PHƠI BÀY"
+      },
+      "checkAt": [
+        18,
+        20
+      ],
+      "priority": 2,
+      "condition": {
+        "op": "flag",
+        "flag": "raid.happened",
+        "equals": true
+      },
+      "epilogueTags": [
+        "T_C_HELPED_OTHERS_RAID",
+        "T_C_HID_RAID",
+        "T_O_SURRENDERED_WITH_EVIDENCE",
+        "T_O_RAN_RAID",
+        "T_W_SAW_RAID",
+        "T_O_DEMANDED_MAI_ALL",
+        "T_O_AGREED_MAI_DEAL",
+        "T_O_REFUSED_MAI",
+        "T_O_RETURNED_PHONE_MAI",
+        "T_C_CALLED_OUTSIDE",
+        "T_O_SENT_EVIDENCE_OUT",
+        "T_O_BURNED_EVIDENCE",
+        "T_C_NEVER_CALLED",
+        "T_W_RECOGNIZED_AS_SOURCE",
+        "T_W_DETAINED_AS_PERPETRATOR",
+        "T_W_WHOLE_FLOOR_LISTED",
+        "T_W_ONLY_MAI_LISTED"
+      ],
+      "witnessPaths": [
+        {
+          "role": "captive",
+          "steps": [
+            {
+              "eventId": "EV_S_D1M_INTAKE",
+              "choiceId": "c_sign"
+            },
+            {
+              "eventId": "EV_C_D1A_DUC_FOOD",
+              "choiceId": "share"
+            },
+            {
+              "eventId": "EV_C_D2A_DUC_CONFIDES",
+              "choiceId": "encourage"
+            },
+            {
+              "eventId": "EV_C_D3A_SEARCH",
+              "choiceId": "cover"
+            },
+            {
+              "eventId": "EV_C_D3N_DUC_CONFESSION",
+              "choiceId": "keep_secret"
+            },
+            {
+              "eventId": "EV_C_D4M_INTERROGATION",
+              "choiceId": "blame_linh"
+            },
+            {
+              "eventId": "EV_C_D4A_PHONE_DECISION",
+              "choiceId": "take"
+            },
+            {
+              "eventId": "EV_C_D5A_PHONE_CONTENTS",
+              "choiceId": "call_out"
+            },
+            {
+              "eventId": "EV_S_D7M_RAID",
+              "choiceId": "c_help"
+            }
+          ],
+          "_doc": "Self-sufficient (MVP): `blame_linh` keeps SUSPICION < 40 so R_SUSPICION_SWEEP cannot take the phone before the call (audit F-19)."
+        },
+        {
+          "role": "operator",
+          "steps": [
+            {
+              "eventId": "EV_O_D3M_MAI_PANIC",
+              "choiceId": "confront"
+            },
+            {
+              "eventId": "EV_O_D4A_LEDGER",
+              "choiceId": "copy"
+            },
+            {
+              "eventId": "EV_O_D5A_MAI_DEAL",
+              "choiceId": "agree"
+            },
+            {
+              "eventId": "EV_O_D6A_EVIDENCE_ROUTE",
+              "choiceId": "send"
+            },
+            {
+              "eventId": "EV_S_D7M_RAID",
+              "choiceId": "o_surrender"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E_INVERSION",
+      "title": {
+        "vi": "ĐẢO VAI"
+      },
+      "checkAt": [
+        20
+      ],
+      "priority": 3,
+      "condition": {
+        "op": "or",
+        "args": [
+          {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "captive"
+              },
+              {
+                "op": "tag",
+                "tag": "T_C_ACCEPTED_THACH_DEAL"
+              }
+            ]
+          },
+          {
+            "op": "and",
+            "args": [
+              {
+                "op": "role",
+                "is": "operator"
+              },
+              {
+                "op": "flag",
+                "flag": "operator.marked",
+                "equals": true
+              }
+            ]
+          }
+        ]
+      },
+      "epilogueTags": [
+        "T_O_ACCEPTED_DEMOTION",
+        "T_O_BEGGED",
+        "T_O_BLACKMAILED_THACH",
+        "T_O_RODE_BACK",
+        "T_W_MARKED",
+        "T_W_OFFERED_TEAM",
+        "T_C_STALLED_THACH",
+        "T_ESCAPE_FAILED",
+        "T_ESCAPE_ATTEMPTED"
+      ],
+      "witnessPaths": [
+        {
+          "role": "captive",
+          "steps": [
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "comply"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "comply"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "comply"
+            },
+            {
+              "eventId": "EV_C_D6M_THACH_DEAL",
+              "choiceId": "accept"
+            }
+          ]
+        },
+        {
+          "role": "operator",
+          "steps": [
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "sabotage"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "sabotage"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "sabotage"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "sabotage"
+            },
+            {
+              "eventId": "EV_S_QUOTA_SHIFT",
+              "choiceId": "sabotage"
+            },
+            {
+              "eventId": "EV_O_D7M_CALLED_UP",
+              "choiceId": "accept"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E_TRANSFER",
+      "title": {
+        "vi": "CHUYỂN GIAO"
+      },
+      "checkAt": [
+        20
+      ],
+      "priority": 4,
+      "condition": {
+        "op": "always"
+      },
+      "epilogueTags": [
+        "T_C_BOARDED_WITH_DUC",
+        "T_C_BOARDED_ALONE",
+        "T_O_RODE_CAB",
+        "T_W_SAW_LOADING_PREP",
+        "T_STAYED_D6",
+        "T_C_REFUSED_THACH_DEAL",
+        "T_O_REFUSED_THACH",
+        "T_C_KEPT_PHONE",
+        "T_O_DESTROYED_PHONE",
+        "T_O_GAVE_PHONE_TO_THACH",
+        "T_C_GAVE_LINH_PHONE",
+        "T_C_TOLD_DUC_PHONE_GONE",
+        "T_C_HID_FROM_DUC",
+        "T_O_IGNORED_VU_POCKET",
+        "T_O_TOLD_VU_REPORT",
+        "T_O_TOOK_PHONE_FROM_VU",
+        "T_C_SPOKE_FOR_DUC",
+        "T_C_SILENT_DUC_TAKEN",
+        "T_O_PROCESSED_DUC",
+        "T_O_OBJECTED_DUC",
+        "T_O_SOFTENED_DUC",
+        "T_W_SAW_DUC_TAKEN",
+        "T_W_SAW_VU_TAKE_PHONE",
+        "T_W_VU_SHOWED_PHONE",
+        "T_W_PHONE_CONFISCATED",
+        "T_W_DUC_CONFIDED_LATE",
+        "T_C_EXPOSED_LINH",
+        "T_C_TURNED_LINH",
+        "T_O_TOLD_LINH_TRUTH",
+        "T_O_USED_LINH",
+        "T_O_LEFT_LINH",
+        "T_C_ASKED_VU_LOOK_AWAY",
+        "T_O_NAMED_DUC",
+        "T_O_REPORTED_MAI",
+        "T_O_STALLED",
+        "T_O_ASKED_ABOUT_LINH",
+        "T_C_BLAMED_DUC",
+        "T_C_BLAMED_LINH",
+        "T_C_DENIED_CALMLY",
+        "T_C_SILENT_INTERROGATION",
+        "T_O_PRESSURED_NEWCOMER",
+        "T_O_SOFT_INTERROGATION",
+        "T_O_CLEARED_NEWCOMER",
+        "T_O_DISCREDITED_LINH",
+        "T_O_KEPT_VERIFICATION",
+        "T_O_REPORTED_CAPTIVE_TIP",
+        "T_O_SUPPRESSED_TIP",
+        "T_O_VERIFY_TIP",
+        "T_C_KEPT_DUC_SECRET",
+        "T_C_URGED_RETURN",
+        "T_C_HELPED_DUC_MOVE_PHONE",
+        "T_C_TOOK_PHONE",
+        "T_C_LEFT_PHONE",
+        "T_C_REFUSED_LINH_OFFER",
+        "T_O_COPIED_LEDGER",
+        "T_O_READ_LEDGER",
+        "T_O_PUNISHED_DUC",
+        "T_O_SPARED_DUC",
+        "T_O_HANDED_DUC_TO_VU",
+        "T_C_WATCHED_PATROL_2",
+        "T_C_SLEPT_D4",
+        "T_O_WARNED_VU",
+        "T_C_GAVE_DUC_CALL",
+        "T_C_STOOD_ASIDE",
+        "T_C_VOLUNTEERED_SEARCH",
+        "T_O_SEARCH_THOROUGH",
+        "T_O_WATCHED_LINH",
+        "T_C_TOLD_LINH_ABOUT_DUC",
+        "T_C_SILENT_TO_LINH",
+        "T_C_QUESTIONED_LINH",
+        "T_O_ACCEPTED_ORDER",
+        "T_O_ASKED_THACH_SUSPECT",
+        "T_O_NOTED_MAI_PANIC",
+        "T_C_WARNED_DUC",
+        "T_C_ENCOURAGED_DUC",
+        "T_O_IGNORED_MAI_ROUTINE",
+        "T_C_DEFLECTED_LINH",
+        "T_O_LINGERED",
+        "T_O_LEFT_QUIETLY",
+        "T_O_ASKED_INVENTORY",
+        "T_O_FILED_INVENTORY",
+        "T_C_OPENED_TO_LINH",
+        "T_C_GUARDED_LINH",
+        "T_O_ASKED_MAI_DEBT",
+        "T_O_IGNORED_DEBT",
+        "T_C_SHARED_FOOD_DUC",
+        "T_C_KEPT_FOOD",
+        "T_C_SLEPT_D1",
+        "T_O_DRANK_WITH_VU",
+        "T_O_DECLINED_VU",
+        "T_QUOTA_HELPED",
+        "T_QUOTA_SABOTAGED",
+        "T_O_PLAIN_INTAKE",
+        "T_C_PROTESTED_INTAKE",
+        "T_W_PHONE_VANISHED",
+        "T_W_CALLED_ABOUT_PHONE"
+      ],
+      "witnessPaths": [
+        {
+          "role": "captive",
+          "steps": [
+            {
+              "eventId": "EV_S_D1M_INTAKE",
+              "choiceId": "c_sign"
+            },
+            {
+              "eventId": "EV_C_D3A_SEARCH",
+              "choiceId": "aside"
+            },
+            {
+              "eventId": "EV_S_D7A_LOADING",
+              "choiceId": "c_alone"
+            }
+          ]
+        },
+        {
+          "role": "operator",
+          "steps": [
+            {
+              "eventId": "EV_S_D1M_INTAKE",
+              "choiceId": "o_plain"
+            },
+            {
+              "eventId": "EV_O_D4M_THACH_NAME",
+              "choiceId": "stall"
+            },
+            {
+              "eventId": "EV_O_D6M_THACH_OFFER",
+              "choiceId": "refuse"
+            },
+            {
+              "eventId": "EV_S_D7A_LOADING",
+              "choiceId": "o_cab"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

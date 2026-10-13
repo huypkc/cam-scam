@@ -1,0 +1,413 @@
+{
+  "version": "0.2.0",
+  "_doc": "WORLD TRUTH. Immutable propositions with canonical values. Decoys are FALSE propositions that rumors may reference. Anything the player can change is a flag (flags.json), never a fact.",
+  "facts": {
+    "F_TRANSFER_DAY7": {
+      "id": "F_TRANSFER_DAY7",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Toàn bộ tầng sẽ bị chuyển giao nguyên lô sang khu khác vào đêm ngày 7."
+      },
+      "initialHolders": [
+        "thach",
+        "mai"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ],
+      "foreshadow": [
+        "Thạch đổi cách hứa từ 'tháng sau' sang 'sau tuần này' (D1)",
+        "Xe tải đếm giường (D2 sáng)"
+      ]
+    },
+    "F_RAID_IMMINENT": {
+      "id": "F_RAID_IMMINENT",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Sắp có một đợt truy quét; đó là lý do chuyển giao."
+      },
+      "initialHolders": [
+        "thach",
+        "mai"
+      ],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_PHONE_EXISTS": {
+      "id": "F_PHONE_EXISTS",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Trong khu có một chiếc điện thoại không đăng ký."
+      },
+      "initialHolders": [
+        "mai"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ],
+      "foreshadow": [
+        "Mai rời phòng hành chính đúng 14:00 mỗi ngày (D1–D2)"
+      ]
+    },
+    "F_PHONE_OWNER_MAI": {
+      "id": "F_PHONE_OWNER_MAI",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Chiếc điện thoại không đăng ký là của Mai."
+      },
+      "initialHolders": [
+        "mai"
+      ],
+      "confirmableBy": [
+        "operator"
+      ],
+      "foreshadow": [
+        "Captive chỉ thấy chữ ký 'M.' trong tin nhắn (OBSERVED, không bao giờ CONFIRMED)"
+      ]
+    },
+    "F_MAI_LEAKING": {
+      "id": "F_MAI_LEAKING",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Mai đã gửi lịch chuyển giao ra bên ngoài."
+      },
+      "initialHolders": [
+        "mai"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_MAI_CONTACT_OUTSIDE": {
+      "id": "F_MAI_CONTACT_OUTSIDE",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Mai có một đầu mối bên ngoài hứa giải cứu nếu có bằng chứng."
+      },
+      "initialHolders": [
+        "mai"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_PHONE_CONTAINS_TRANSFER_PROOF": {
+      "id": "F_PHONE_CONTAINS_TRANSFER_PROOF",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Trong điện thoại có tin nhắn chứng minh lịch chuyển giao ngày 7."
+      },
+      "initialHolders": [
+        "mai"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_BOSS_KNOWS_LEAK": {
+      "id": "F_BOSS_KNOWS_LEAK",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Ông Chủ biết có người trong tầng đang liên lạc với bên ngoài."
+      },
+      "initialHolders": [],
+      "confirmableBy": [
+        "operator"
+      ],
+      "foreshadow": [
+        "Thạch nhận điện thoại đêm D2 và đổi sắc mặt"
+      ]
+    },
+    "F_SEARCH_IS_LEAK_HUNT": {
+      "id": "F_SEARCH_IS_LEAK_HUNT",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Cuộc khám xét ngày 3 là để tìm kẻ rò rỉ; 'mất điện thoại văn phòng' là cớ Thạch bịa ra."
+      },
+      "initialHolders": [],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_PHONE_TAKEN_BY_DUC": {
+      "id": "F_PHONE_TAKEN_BY_DUC",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Đức lấy điện thoại từ ngăn bàn của Mai sáng ngày 3."
+      },
+      "initialHolders": [],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ],
+      "foreshadow": [
+        "Đức tái mặt khi quay về sàn làm việc (D3 sáng)"
+      ]
+    },
+    "F_PHONE_HIDDEN_DORM_CEILING": {
+      "id": "F_PHONE_HIDDEN_DORM_CEILING",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Đức giấu điện thoại trong khe trần nhà vệ sinh ký túc."
+      },
+      "initialHolders": [],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_LINH_SAW_DUC_TAKE_PHONE": {
+      "id": "F_LINH_SAW_DUC_TAKE_PHONE",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Linh nhìn thấy Đức bỏ thứ gì đó vào túi ở hành lang sáng ngày 3."
+      },
+      "initialHolders": [],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_LINH_INFORMANT": {
+      "id": "F_LINH_INFORMANT",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Linh báo tin cho Thạch để đổi lấy 'ngày thả'."
+      },
+      "initialHolders": [
+        "thach",
+        "vu",
+        "mai",
+        "linh"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ],
+      "foreshadow": [
+        "Linh biết tên người mới trước khi được giới thiệu (D1 chiều)"
+      ]
+    },
+    "F_LINH_RELEASE_IS_LIE": {
+      "id": "F_LINH_RELEASE_IS_LIE",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "'Ngày thả' hứa với Linh không bao giờ tới; đó là cách giữ cô làm tai mắt."
+      },
+      "initialHolders": [
+        "thach"
+      ],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_VU_WAS_CAPTIVE": {
+      "id": "F_VU_WAS_CAPTIVE",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Vũ từng là người bị giam ở chính tầng này."
+      },
+      "initialHolders": [
+        "thach",
+        "vu",
+        "mai"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_VU_KNOWS_BLINDSPOT": {
+      "id": "F_VU_KNOWS_BLINDSPOT",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Có một khoảng trống giám sát ở tường đông sân trong lúc đổi ca đêm; Vũ biết và dùng nó để hút thuốc."
+      },
+      "initialHolders": [
+        "vu"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_THACH_PLANS_OWN_EXIT": {
+      "id": "F_THACH_PLANS_OWN_EXIT",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Thạch định rời đi trước chuyển giao, với tiền, một mình hoặc với một người giúp việc."
+      },
+      "initialHolders": [
+        "thach"
+      ],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_MAI_HOLDS_DEBT_LEDGER": {
+      "id": "F_MAI_HOLDS_DEBT_LEDGER",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Mai giữ sổ nợ của mọi người trong tầng, kể cả nhân viên."
+      },
+      "initialHolders": [
+        "thach",
+        "vu",
+        "mai"
+      ],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_DEBT_LEDGER_PROVES_COERCION": {
+      "id": "F_DEBT_LEDGER_PROVES_COERCION",
+      "value": true,
+      "category": "background",
+      "statement": {
+        "vi": "Sổ nợ là bằng chứng cưỡng ép lao động nếu ra được bên ngoài."
+      },
+      "initialHolders": [
+        "mai"
+      ],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_OPERATOR_PC_INDEBTED": {
+      "id": "F_OPERATOR_PC_INDEBTED",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Người chơi vai Operator cũng có một hợp đồng nợ trong sổ của Mai."
+      },
+      "initialHolders": [
+        "thach",
+        "mai"
+      ],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_TRUCK_DAY2_WAS_INVENTORY": {
+      "id": "F_TRUCK_DAY2_WAS_INVENTORY",
+      "value": true,
+      "category": "incident",
+      "statement": {
+        "vi": "Xe tải ngày 2 đến để kiểm kê 'tài sản' (người) trước chuyển giao."
+      },
+      "initialHolders": [],
+      "confirmableBy": [
+        "operator"
+      ]
+    },
+    "F_DUC_WANTS_TO_CALL_MOTHER": {
+      "id": "F_DUC_WANTS_TO_CALL_MOTHER",
+      "value": true,
+      "category": "identity",
+      "statement": {
+        "vi": "Đức chỉ muốn gọi một cuộc cho mẹ."
+      },
+      "initialHolders": [
+        "duc"
+      ],
+      "confirmableBy": [
+        "captive",
+        "operator"
+      ]
+    },
+    "F_CAPTIVE_PC_NEAR_ADMIN_D3": {
+      "id": "F_CAPTIVE_PC_NEAR_ADMIN_D3",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Người mới (vai Captive) lảng vảng gần phòng hành chính sáng ngày 3."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    },
+    "F_PHONE_TAKEN_BY_CAPTIVE_PC": {
+      "id": "F_PHONE_TAKEN_BY_CAPTIVE_PC",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Người mới (vai Captive) là người lấy điện thoại."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    },
+    "F_SEARCH_IS_ABOUT_STOLEN_PHONE": {
+      "id": "F_SEARCH_IS_ABOUT_STOLEN_PHONE",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Cuộc khám xét ngày 3 được tổ chức vì một điện thoại văn phòng bị mất."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    },
+    "F_LINH_RELEASE_DATE_REAL": {
+      "id": "F_LINH_RELEASE_DATE_REAL",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Linh sẽ được thả vào ngày đã hứa."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    },
+    "F_VU_FOUND_PHONE_D3": {
+      "id": "F_VU_FOUND_PHONE_D3",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Vũ tìm thấy điện thoại ở giường Đức trong cuộc khám xét ngày 3."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    },
+    "F_MAI_LEAK_IS_FOR_EVERYONE": {
+      "id": "F_MAI_LEAK_IS_FOR_EVERYONE",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Mai rò rỉ thông tin để giải cứu tất cả mọi người."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    },
+    "F_DUC_IS_THE_LEAK": {
+      "id": "F_DUC_IS_THE_LEAK",
+      "value": false,
+      "category": "decoy",
+      "statement": {
+        "vi": "Đức là người liên lạc với bên ngoài."
+      },
+      "initialHolders": [],
+      "confirmableBy": []
+    }
+  }
+}

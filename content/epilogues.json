@@ -1,0 +1,842 @@
+{
+  "_doc": "EPILOGUES (MVP). Pure projection of the FINAL GameState (docs/04 §2.4): for each ending, the first `variants` entry whose `roles` include the player and whose `when` (Condition AST) holds gives the ending narrative; every matching `extras` entry is appended. For each NPC the first matching card is shown. Conditions read flags, tags, NPC status/knowledge and nothing else — WorldTruth is never read (there is no `fact` operator).",
+  "endings": {
+    "E_ESCAPE": {
+      "variants": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "flag",
+            "flag": "escape.withDuc",
+            "equals": true
+          },
+          "text": {
+            "vi": "Khoảng tối ở tường đông kéo dài đúng như bạn đã đếm. Đức đi sát sau bạn, không thở. Vũ đứng ở góc sân, quay lưng lại, châm thuốc. Anh ta không nhìn. Ra đến đường, Đức hỏi mượn điện thoại của người đầu tiên hai người gặp. Em gọi cho mẹ. Bạn không nghe em nói gì, chỉ thấy em ngồi xuống vệ đường."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Bạn đi một mình. Khoảng tối ở tường đông đủ cho một người nếu người đó không ngoái lại. Bạn không ngoái lại. Đêm ngày 7, ở một nơi có sóng, bạn nghĩ về chiếc giường cạnh giường mình và không biết nó còn ai nằm."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "flag",
+            "flag": "escape.withThach",
+            "equals": true
+          },
+          "text": {
+            "vi": "Bạn lái. Thạch ngồi ghế phụ, túi tiền trên đùi, nói 'sau tuần này' thêm một lần nữa như một thói quen. Đến thị trấn thứ hai, anh ta bảo dừng mua nước. Bạn đợi hai mươi phút. Anh ta không quay lại, và chiếc xe là của bạn."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_FEIGNED_ACCEPT"
+          },
+          "text": {
+            "vi": "Bạn gật đầu với Thạch và nhớ lối anh ta chỉ. Đêm 6 bạn đi trước anh ta một giờ, không xe, không tiền, không ai biết. Sáng ngày 7 Thạch tìm người lái. Không có ai."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Chỗ Vũ ra hút thuốc lúc đổi ca, camera không với tới. Bạn đi qua đó như đi ra hút thuốc. Rồi không quay vào. Cả tầng lên xe đêm hôm sau mà không có bạn trong danh sách nào."
+          }
+        }
+      ],
+      "extras": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_LEAVES_DUC"
+          },
+          "text": {
+            "vi": "Đức đã hỏi. Bạn nói 'không có gì đâu'. Em tin bạn."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_ASKED_VU_LOOK_AWAY"
+          },
+          "text": {
+            "vi": "Bạn đã xin Vũ một điều mà anh ta không thể nói ra là đã cho."
+          }
+        },
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "flag",
+            "flag": "evidence.outside",
+            "equals": true
+          },
+          "text": {
+            "vi": "Thứ bạn gửi ra ngoài vẫn đang đi. Sáng ngày 7, ở khu B, có tiếng cổng."
+          }
+        }
+      ]
+    },
+    "E_EXPOSURE": {
+      "variants": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_CALLED_OUTSIDE"
+          },
+          "text": {
+            "vi": "Người ở đầu dây bên kia không hỏi bạn là ai. Họ hỏi có bao nhiêu người. Sáng ngày 7 cổng bị phá từ bên ngoài, và danh sách họ cầm có số bạn đã nói. Không phải ai trong danh sách cũng được đi ngay. Nhưng không ai lên xe."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Bạn không gọi ai. Ai đó đã gọi. Sáng ngày 7 cổng bị phá, người lạ đếm người theo một danh sách bạn chưa từng thấy. Bạn đứng trong hàng và hiểu rằng tuần vừa rồi có một cuộc chơi khác, diễn ra ở tầng trên, mà bạn chỉ thấy cái bóng."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_W_RECOGNIZED_AS_SOURCE"
+          },
+          "text": {
+            "vi": "Người cầm danh sách đọc tên bạn ở cột 'nguồn'. Bạn được tách ra, không bị còng. Vũ nhìn bạn từ hàng bên kia. Anh ta không nói gì, và đó là lần đầu tiên bạn thấy anh ta không biết phải làm gì."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Bạn bị còng cùng Vũ. Không ai hỏi bạn là ai, cũng không ai hỏi bạn đã làm gì tuần này. Con số trong sổ nợ của bạn vẫn ở đó, trong một tập hồ sơ, dưới một cái tên khác: bị can."
+          }
+        }
+      ],
+      "extras": [
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_W_WHOLE_FLOOR_LISTED"
+          },
+          "text": {
+            "vi": "Danh sách có đủ tên cả tầng."
+          }
+        },
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_W_ONLY_MAI_LISTED"
+          },
+          "text": {
+            "vi": "Danh sách chỉ có một tên: 'M.'. Những người còn lại được đếm như đồ vật, rồi được đưa đi sau, chậm hơn, theo thủ tục."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_HELPED_OTHERS_RAID"
+          },
+          "text": {
+            "vi": "Bạn kéo những người còn lại ra chỗ được đếm. Có người không muốn đi. Bạn kéo họ đi."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_HID_RAID"
+          },
+          "text": {
+            "vi": "Bạn nấp cho đến khi xong. Khi được tìm thấy, bạn là người cuối cùng trong danh sách."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_RAN_RAID"
+          },
+          "text": {
+            "vi": "Bạn chạy theo Thạch. Anh ta nhanh hơn bạn một cánh cổng."
+          }
+        }
+      ]
+    },
+    "E_INVERSION": {
+      "variants": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_ACCEPTED_THACH_DEAL"
+          },
+          "text": {
+            "vi": "Bạn có giường riêng, có cửa khóa từ bên trong. Xe đến đêm ngày 7 và bạn ngồi cabin. Ở khu mới, lô mới vào sáng ngày 8. Bạn cầm danh sách, đọc tên, và thấy một người trong số họ nhìn lên khi được gọi đúng tên trước khi kịp giới thiệu."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Bạn được đưa lên tầng trên trước khi xe đến. Người ta phát cho bạn một bộ đồ khác, một danh sách, và một giọng nói để đọc nó. Ở khu mới, lô mới vào sáng ngày 8. Bạn đọc tên từng người và nhận ra mình đang nói đúng câu Thạch đã nói với bạn tuần trước."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_BEGGED"
+          },
+          "text": {
+            "vi": "Bạn xin. Họ nghe hết. Rồi hợp đồng của bạn được chuyển sang khu mới dưới dạng khác. Bạn thức dậy trong ký túc, trên một chiếc giường không phải của mình. Một người phụ nữ đến bắt chuyện. Cô ấy gọi đúng tên bạn."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Hợp đồng của bạn được chuyển sang khu mới dưới dạng khác. Bạn thức dậy trong ký túc, trên một chiếc giường không phải của mình, với con số nợ bạn từng ký cho người khác. Một người phụ nữ đến bắt chuyện, gọi đúng tên bạn trước khi bạn kịp giới thiệu. Bạn biết chính xác cô ấy sẽ nói gì tiếp theo."
+          }
+        }
+      ],
+      "extras": [
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_ESCAPE_FAILED"
+          },
+          "text": {
+            "vi": "Đêm 6 bạn đã thử. Khoảng tối ngắn hơn bạn đếm."
+          }
+        }
+      ]
+    },
+    "E_TRANSFER": {
+      "variants": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_ESCAPE_FAILED"
+          },
+          "text": {
+            "vi": "Đêm 6 bạn đã thử. Sáng ngày 7 bạn lên xe riêng, bị còng, trước mọi người. Ở khu mới, người đầu tiên đến bắt chuyện với bạn sẽ biết tên bạn từ trước, và biết bạn đã từng chạy."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "flag",
+            "flag": "captive_pc.isolated",
+            "equals": true
+          },
+          "text": {
+            "vi": "Bạn bị cách ly từ sau cuộc thẩm vấn. Lệnh đóng gói đến qua cánh cửa đóng. Bạn lên xe sau cùng, không thấy ai, và ở khu mới mọi chuyện bắt đầu lại từ ngày 1."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_BOARDED_WITH_DUC"
+          },
+          "text": {
+            "vi": "Xe đến. Bạn lên cùng xe với Đức. Em ngồi sát cửa, tay không rời túi quần dù trong đó không còn gì. Khu mới có một tầng giống hệt tầng này. Tuần sau có lô mới. Bạn đã biết phải nhìn vào đâu."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Xe đến. Mỗi người lên theo cách của mình. Khu mới có một tầng giống hệt tầng này, và một người quản lý nói 'sau tuần này' với lô mới. Bạn đã sống bảy ngày để hiểu câu đó. Bạn sẽ sống thêm bảy ngày nữa."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_BLACKMAILED_THACH"
+          },
+          "text": {
+            "vi": "'Tôi có bản sao sổ nợ.' Câu đó mua cho bạn một chỗ ngồi cabin. Thạch không nhìn bạn suốt chuyến đi. Ở khu mới bạn được 'thăng chức', nghĩa là từ nay bạn ký những phiếu kiểm kê có tên người."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "always"
+          },
+          "text": {
+            "vi": "Bạn ngồi cabin. Thùng xe phía sau im lặng. Ở khu mới bạn được 'thăng chức', nghĩa là từ nay bạn là người đưa hợp đồng cho lô mới, và cập nhật con số. Bạn vẫn nằm trong sổ nợ. Chỉ là ở một cột khác."
+          }
+        }
+      ],
+      "extras": [
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_REFUSED_THACH_DEAL"
+          },
+          "text": {
+            "vi": "Bạn đã từ chối lên team. Thạch không nhắc lại. Anh ta ghi nhớ."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_C_KEPT_PHONE"
+          },
+          "text": {
+            "vi": "Chiếc điện thoại vẫn trong người bạn, hết pin. Ở khu mới có ổ cắm."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_W_CALLED_ABOUT_PHONE"
+          },
+          "text": {
+            "vi": "Chiếc điện thoại bạn đưa Linh 'giữ hộ' đã lên bàn Thạch ngay sáng hôm sau, kèm tên bạn."
+          }
+        },
+        {
+          "roles": [
+            "captive"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_W_PHONE_VANISHED"
+          },
+          "text": {
+            "vi": "Chiếc điện thoại biến mất khỏi khe trần trước khi ai trong ký túc kịp hiểu vì sao. Không ai bị gọi lên vì nó."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_DESTROYED_PHONE"
+          },
+          "text": {
+            "vi": "Bạn đã phá hủy chiếc điện thoại. Thứ duy nhất có thể kết thúc tất cả nằm trong thùng rác hành chính, và tất cả tiếp tục."
+          }
+        },
+        {
+          "roles": [
+            "operator"
+          ],
+          "when": {
+            "op": "tag",
+            "tag": "T_O_GAVE_PHONE_TO_THACH"
+          },
+          "text": {
+            "vi": "Bạn đã nộp chiếc điện thoại cho Thạch. Anh ta có cái tên anh ta cần, và bạn có một chỗ ngồi tốt hơn."
+          }
+        },
+        {
+          "roles": [
+            "captive",
+            "operator"
+          ],
+          "when": {
+            "op": "flag",
+            "flag": "player.caught",
+            "equals": true
+          },
+          "text": {
+            "vi": "Bạn đã bị bắt khi cố trốn đêm 6."
+          }
+        }
+      ]
+    }
+  },
+  "npcs": {
+    "thach": [
+      {
+        "when": {
+          "op": "flag",
+          "flag": "raid.happened",
+          "equals": true
+        },
+        "text": {
+          "vi": "Bị giữ lại ở cổng với một túi tiền mặt và một vé xe ghi sai tên. Anh ta đòi gọi cho 'Ông Chủ'. Số đó không còn liên lạc được."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "escape.withThach",
+          "equals": true
+        },
+        "text": {
+          "vi": "Rời đi đêm 6 với người lái anh ta tuyển được. Đến thị trấn thứ hai thì không ai còn thấy anh ta. Anh ta luôn định đi một mình."
+        }
+      },
+      {
+        "when": {
+          "op": "tag",
+          "tag": "T_C_ACCEPTED_THACH_DEAL"
+        },
+        "text": {
+          "vi": "Giữ bạn lại làm người gác cho lô mới. Trong sổ của anh ta, bạn là một khoản đã mua được với giá rẻ."
+        }
+      },
+      {
+        "when": {
+          "op": "npcBelieves",
+          "npc": "thach",
+          "factId": "F_MAI_LEAKING",
+          "minStatus": "CONFIRMED"
+        },
+        "text": {
+          "vi": "Nộp lên trên một cái tên: Mai. Anh ta lên cabin xe đầu tiên với tư cách người đã 'xử lý xong rò rỉ'. Anh ta không nhắc đến việc chính anh ta cũng định đi."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "duc.scapegoated",
+          "equals": true
+        },
+        "text": {
+          "vi": "Nộp lên trên cái tên Đức. Anh ta biết đứa 19 tuổi đó không nhắn tin cho ai. Một cái tên vẫn tốt hơn không có tên."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "phone.location",
+          "equals": "thach"
+        },
+        "text": {
+          "vi": "Có chiếc điện thoại trong tay nhưng không có kẻ rò rỉ. Anh ta nộp lên một báo cáo dài và đi cùng tầng sang khu mới, vẫn là quản lý, vẫn 'sau tuần này'."
+        }
+      },
+      {
+        "when": {
+          "op": "always"
+        },
+        "text": {
+          "vi": "Không bao giờ tìm ra kẻ rò rỉ, cũng không tìm ra chiếc điện thoại. Anh ta lên cabin xe đầu tiên và tự nhủ chuyến này sẽ khác. Nó không khác."
+        }
+      }
+    ],
+    "vu": [
+      {
+        "when": {
+          "op": "and",
+          "args": [
+            {
+              "op": "flag",
+              "flag": "escape.vuWillOpen",
+              "equals": true
+            },
+            {
+              "op": "flag",
+              "flag": "player.escaped",
+              "equals": true
+            }
+          ]
+        },
+        "text": {
+          "vi": "Đêm 6 anh ta nhìn đi chỗ khác. Sáng ngày 7 anh ta bị hỏi. Anh ta nói không thấy gì. Lần đầu tiên từ khi 'lên', anh ta nói dối cho một người ở dưới."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "raid.happened",
+          "equals": true
+        },
+        "text": {
+          "vi": "Bị còng cùng những người anh ta canh. Lần này không có ai kéo anh ta lên. Trong danh sách, anh ta nằm ở cột 'nhân viên'."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "vu.shieldingPhone",
+          "equals": true
+        },
+        "text": {
+          "vi": "Giữ chiếc điện thoại trong tủ cho đến ngày cuối. Không nộp. Không dùng. Khi lên xe, anh ta để nó lại trong tủ cho người đến sau."
+        }
+      },
+      {
+        "when": {
+          "op": "npcKnowsTag",
+          "npc": "vu",
+          "tag": "T_C_GAVE_DUC_CALL"
+        },
+        "text": {
+          "vi": "Anh ta thấy Đức gọi ngoài sân và không báo. Anh ta nhớ ai đã đưa Đức cuộc gọi đó. Anh ta không bao giờ nói ra."
+        }
+      },
+      {
+        "when": {
+          "op": "npcKnowsTag",
+          "npc": "vu",
+          "tag": "T_O_TOLD_VU_REPORT"
+        },
+        "text": {
+          "vi": "Nộp chiếc điện thoại vì bạn bảo thế. Anh ta được khen đúng quy trình và được giữ chỗ ở khu mới. Anh ta không cảm ơn bạn."
+        }
+      },
+      {
+        "when": {
+          "op": "npcBelieves",
+          "npc": "vu",
+          "factId": "F_DUC_IS_THE_LEAK",
+          "minStatus": "RUMOR"
+        },
+        "text": {
+          "vi": "Tin rằng Đức là kẻ rò rỉ vì Thạch nói thế. Anh ta thi hành. Anh ta tự nhủ tàn nhẫn vừa đủ là cách bảo vệ những người còn lại."
+        }
+      },
+      {
+        "when": {
+          "op": "always"
+        },
+        "text": {
+          "vi": "Theo tầng sang khu mới. Vẫn là bảo vệ. Vẫn sợ bị hạ xuống. Mỗi lô mới anh ta lại thấy mình trong một đứa 19 tuổi nào đó, và lại lật giường nó kỹ gấp đôi."
+        }
+      }
+    ],
+    "mai": [
+      {
+        "when": {
+          "op": "and",
+          "args": [
+            {
+              "op": "flag",
+              "flag": "raid.happened",
+              "equals": true
+            },
+            {
+              "op": "flag",
+              "flag": "mai.dealIncludesAll",
+              "equals": true
+            }
+          ]
+        },
+        "text": {
+          "vi": "Được đưa ra đầu tiên, cùng cả tầng. Cô không nhìn ai khi đi qua hàng. Danh sách cô gửi có đủ tên mọi người, vì bạn đã bắt cô thêm vào."
+        }
+      },
+      {
+        "when": {
+          "op": "and",
+          "args": [
+            {
+              "op": "flag",
+              "flag": "raid.happened",
+              "equals": true
+            },
+            {
+              "op": "npcStatus",
+              "npc": "mai",
+              "is": "isolated"
+            }
+          ]
+        },
+        "text": {
+          "vi": "Được đưa ra từ phòng cách ly, đầu tiên. Danh sách có tên cô ở cột 'nguồn' dù từ sáng ngày 4 cô không còn gửi được gì. Cô không hỏi ai đã gửi phần còn lại."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "raid.happened",
+          "equals": true
+        },
+        "text": {
+          "vi": "Được đưa ra đầu tiên. Một mình, đúng như cô đã sắp xếp. Những người còn lại được đếm sau. Cô không ngoái lại; cô chưa bao giờ nhìn ai lâu hơn một con số."
+        }
+      },
+      {
+        "when": {
+          "op": "npcKnowsTag",
+          "npc": "mai",
+          "tag": "T_O_REPORTED_MAI"
+        },
+        "text": {
+          "vi": "Biết bạn đã đưa tên cô cho Thạch. Cô không trách; cô chỉ sửa con số của bạn lên một bậc trước khi sổ đổi tay."
+        }
+      },
+      {
+        "when": {
+          "op": "npcStatus",
+          "npc": "mai",
+          "is": "isolated"
+        },
+        "text": {
+          "vi": "Bị 'hạ xuống'. Sổ nợ đổi tay. Ở khu mới, tên cô nằm ở cột cô từng ghi tên người khác. Cuộc giải cứu cô đổi bằng lịch chuyển giao không đến vì không ai còn nhắn."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "phone.location",
+          "equals": "mai"
+        },
+        "text": {
+          "vi": "Lấy lại được chiếc điện thoại trước khi ai kịp hiểu nó là gì. Cô tiếp tục nhắn. Người ở đầu dây bên kia hứa 'sớm'. Cô ghi sổ ở khu mới và vẫn rời bàn lúc 14:00."
+        }
+      },
+      {
+        "when": {
+          "op": "always"
+        },
+        "text": {
+          "vi": "Mất điện thoại, mất đầu mối, mất cuộc giải cứu riêng. Cô lên xe cùng tầng, ngồi cabin với sổ nợ trên đùi, và ghi tiếp ở khu mới. 'Tôi chỉ ghi số.'"
+        }
+      }
+    ],
+    "linh": [
+      {
+        "when": {
+          "op": "flag",
+          "flag": "raid.happened",
+          "equals": true
+        },
+        "text": {
+          "vi": "Được thả thật, bởi những người cô chưa từng báo tin cho. Số đầu tiên cô gọi không còn ai nhấc máy. Số thứ hai có."
+        }
+      },
+      {
+        "when": {
+          "op": "npcStatus",
+          "npc": "linh",
+          "is": "isolated"
+        },
+        "text": {
+          "vi": "Bị đưa khỏi ký túc sau khi bị vạch mặt. Không còn ai để báo tin về, nên không còn 'ngày thả' để đợi. Cô lên xe riêng."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "linh.doubleAgent",
+          "equals": true
+        },
+        "text": {
+          "vi": "Biết ngày thả là dối. Cô gieo cho Thạch đúng điều bạn muốn anh ta tin, rồi ngừng báo. Lần đầu tiên sau năm tháng, cô không có gì để đổi, và thấy nhẹ."
+        }
+      },
+      {
+        "when": {
+          "op": "tag",
+          "tag": "T_C_FORGAVE_LINH"
+        },
+        "text": {
+          "vi": "Bạn không nói gì, với ai. Cô ấy vẫn báo tin. 'Ngày thả' lùi thêm một tháng ở khu mới. Cô vẫn là người đầu tiên đến bắt chuyện với lô mới, gọi đúng tên họ."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "linh.reportsToThach",
+          "equals": false
+        },
+        "text": {
+          "vi": "Kênh báo tin của cô bị cắt. Thạch không cần cô nữa, và không ai hứa với cô điều gì nữa. Cô lên xe như mọi người."
+        }
+      },
+      {
+        "when": {
+          "op": "always"
+        },
+        "text": {
+          "vi": "Lên xe với 'ngày thả' trong túi. Nó sẽ lùi tiếp ở khu mới. Cô sẽ lại là người đầu tiên đến bắt chuyện với lô mới, và lại gọi đúng tên họ."
+        }
+      }
+    ],
+    "duc": [
+      {
+        "when": {
+          "op": "and",
+          "args": [
+            {
+              "op": "flag",
+              "flag": "player.escaped",
+              "equals": true
+            },
+            {
+              "op": "flag",
+              "flag": "escape.withDuc",
+              "equals": true
+            }
+          ]
+        },
+        "text": {
+          "vi": "Ra ngoài cùng bạn. Cuộc gọi đầu tiên em thực hiện là cho mẹ. Em nói 'con ổn' bốn lần rồi khóc."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "raid.happened",
+          "equals": true
+        },
+        "text": {
+          "vi": "Được đếm trong danh sách. Câu đầu tiên em hỏi người lạ mặc đồng phục là họ có điện thoại không."
+        }
+      },
+      {
+        "when": {
+          "op": "npcStatus",
+          "npc": "duc",
+          "is": "gone"
+        },
+        "text": {
+          "vi": "Không còn ở tầng này. Không ai nói em đi đâu."
+        }
+      },
+      {
+        "when": {
+          "op": "npcStatus",
+          "npc": "duc",
+          "is": "isolated"
+        },
+        "text": {
+          "vi": "Bị quy là kẻ rò rỉ. Không ai cải chính. Em không quay lại ký túc tối đó, và lên xe bằng cửa khác. Em vẫn chưa gọi được cho mẹ."
+        }
+      },
+      {
+        "when": {
+          "op": "npcStatus",
+          "npc": "duc",
+          "is": "demoted"
+        },
+        "text": {
+          "vi": "Bị 'hạ xuống' thay vì bị quy tội, vì có người đã sắp xếp. Em không biết là ai. Em lên xe cùng mọi người, ngồi sát cửa."
+        }
+      },
+      {
+        "when": {
+          "op": "flag",
+          "flag": "duc.calledHome",
+          "equals": true
+        },
+        "text": {
+          "vi": "Gọi được một cuộc. Mẹ em nhấc máy. Em không nói được gì ngoài 'con ổn, con sắp về'. Chỉ một trong hai câu là thật, và em không biết là câu nào."
+        }
+      },
+      {
+        "when": {
+          "op": "tag",
+          "tag": "T_C_BOARDED_WITH_DUC"
+        },
+        "text": {
+          "vi": "Lên xe cùng bạn. Em ngồi sát cửa. Ở khu mới em vẫn tìm chỗ giấu trước khi tìm chỗ ngủ."
+        }
+      },
+      {
+        "when": {
+          "op": "always"
+        },
+        "text": {
+          "vi": "Lên xe. Em chưa gọi được cho mẹ. Ở khu mới, em sẽ lại tìm một chiếc điện thoại, và lần này em sẽ không nói với ai."
+        }
+      }
+    ]
+  }
+}

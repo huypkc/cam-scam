@@ -1,0 +1,11 @@
+# game saves written by the CLI / browser
+saves/
+*.save.json
+
+# tooling
+node_modules/
+npm-debug.log*
+.DS_Store
+*.log
+.vscode/
+.idea/

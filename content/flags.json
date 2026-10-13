@@ -1,0 +1,288 @@
+{
+  "_doc": "CONTINGENT world state. Every flag starts at `initial` and changes only via Consequence with a CausalOrigin. Phase 3 (P2): `visibleTo` / `visibleByValue` declare which NPCs may READ a flag inside an NpcAction or PropagationRule condition; omitted = hidden from every NPC. `terminal` lists values that need no reader (audit F-06). MVP: `playerInitial` declares the starting stats per role (audit F-09, ratified 2026-10-13).",
+  "flags": [
+    {
+      "id": "phone.location",
+      "initial": "mai_drawer",
+      "values": [
+        "mai_drawer",
+        "dorm_ceiling",
+        "yard_cache",
+        "vu_locker",
+        "thach",
+        "player",
+        "linh",
+        "mai",
+        "destroyed"
+      ],
+      "description": {
+        "vi": "Điện thoại của Mai đang ở đâu / trong tay ai."
+      },
+      "visibleByValue": {
+        "mai_drawer": [
+          "mai"
+        ],
+        "dorm_ceiling": [
+          "duc"
+        ],
+        "yard_cache": [
+          "duc"
+        ],
+        "vu_locker": [
+          "vu"
+        ],
+        "thach": [
+          "thach",
+          "vu"
+        ],
+        "player": [],
+        "linh": [
+          "linh"
+        ],
+        "mai": [
+          "mai"
+        ],
+        "destroyed": []
+      },
+      "terminal": [
+        "thach",
+        "destroyed",
+        "mai",
+        "linh"
+      ]
+    },
+    {
+      "id": "evidence.outside",
+      "initial": false,
+      "description": {
+        "vi": "Bằng chứng (nội dung điện thoại hoặc sổ nợ) đã ra tới đầu mối bên ngoài."
+      }
+    },
+    {
+      "id": "evidence.ledgerCopy",
+      "initial": false,
+      "description": {
+        "vi": "Operator đang giữ bản sao một trang sổ nợ."
+      }
+    },
+    {
+      "id": "linh.reportsToThach",
+      "initial": true,
+      "description": {
+        "vi": "Kênh báo tin Linh → Thạch còn hoạt động."
+      },
+      "visibleTo": [
+        "linh",
+        "thach",
+        "vu"
+      ]
+    },
+    {
+      "id": "linh.doubleAgent",
+      "initial": false,
+      "description": {
+        "vi": "Linh đã quay sang gieo tin cho Thạch theo ý người chơi Captive."
+      },
+      "visibleTo": [
+        "linh"
+      ]
+    },
+    {
+      "id": "thach.hasCaptiveTip",
+      "initial": false,
+      "description": {
+        "vi": "Thạch đã nhận tin báo nhắm vào người mới (vai Captive)."
+      },
+      "visibleTo": [
+        "thach",
+        "vu",
+        "mai"
+      ],
+      "_doc": "Mai files the paperwork for every interrogation Thạch orders, so she knows when he has a suspect (MVP: read by A_MAI_SEARCH_DORM)."
+    },
+    {
+      "id": "duc.scapegoated",
+      "initial": false,
+      "description": {
+        "vi": "Đức bị quy là thủ phạm."
+      },
+      "visibleTo": "all"
+    },
+    {
+      "id": "duc.calledHome",
+      "initial": false,
+      "description": {
+        "vi": "Đức đã gọi được một cuộc cho mẹ."
+      },
+      "visibleTo": [
+        "duc",
+        "vu"
+      ]
+    },
+    {
+      "id": "mai.exposed",
+      "initial": false,
+      "description": {
+        "vi": "Thạch đã biết điện thoại là của Mai."
+      },
+      "visibleTo": [
+        "thach",
+        "vu",
+        "mai"
+      ]
+    },
+    {
+      "id": "mai.dealActive",
+      "initial": false,
+      "description": {
+        "vi": "Operator đã nhận thỏa thuận với Mai."
+      },
+      "visibleTo": [
+        "mai"
+      ]
+    },
+    {
+      "id": "mai.dealIncludesAll",
+      "initial": false,
+      "description": {
+        "vi": "Mai đồng ý mở rộng giải cứu cho cả tầng."
+      },
+      "visibleTo": [
+        "mai"
+      ]
+    },
+    {
+      "id": "escape.routeKnown",
+      "initial": false,
+      "description": {
+        "vi": "Người chơi biết khoảng trống giám sát đêm 6."
+      }
+    },
+    {
+      "id": "escape.vuWillOpen",
+      "initial": false,
+      "description": {
+        "vi": "Vũ đồng ý 'không nhìn' đêm 6."
+      },
+      "visibleTo": [
+        "vu"
+      ]
+    },
+    {
+      "id": "escape.withDuc",
+      "initial": false,
+      "description": {
+        "vi": "Người chơi Captive sẽ đưa Đức đi cùng."
+      },
+      "visibleTo": [
+        "duc"
+      ]
+    },
+    {
+      "id": "escape.withThach",
+      "initial": false,
+      "description": {
+        "vi": "Operator đi theo kế hoạch rời đi của Thạch."
+      },
+      "visibleTo": [
+        "thach"
+      ]
+    },
+    {
+      "id": "player.escaped",
+      "initial": false,
+      "description": {
+        "vi": "Người chơi đã ra khỏi khu đêm 6."
+      },
+      "visibleTo": "all"
+    },
+    {
+      "id": "player.caught",
+      "initial": false,
+      "description": {
+        "vi": "Người chơi bị bắt khi cố trốn."
+      },
+      "visibleTo": "all"
+    },
+    {
+      "id": "captive_pc.isolated",
+      "initial": false,
+      "description": {
+        "vi": "Người mới (vai Captive) bị cách ly sau thẩm vấn."
+      },
+      "visibleTo": "all"
+    },
+    {
+      "id": "operator.marked",
+      "initial": false,
+      "description": {
+        "vi": "Operator bị tổ chức đánh dấu để 'hạ xuống'."
+      },
+      "visibleTo": [
+        "thach",
+        "vu"
+      ]
+    },
+    {
+      "id": "operator.cooperationProof",
+      "initial": false,
+      "description": {
+        "vi": "Operator có bằng chứng đã hợp tác với bên ngoài trước truy quét."
+      }
+    },
+    {
+      "id": "raid.scheduled",
+      "initial": false,
+      "description": {
+        "vi": "Truy quét sẽ diễn ra sáng ngày 7."
+      }
+    },
+    {
+      "id": "raid.happened",
+      "initial": false,
+      "description": {
+        "vi": "Truy quét đã diễn ra."
+      },
+      "visibleTo": "all"
+    },
+    {
+      "id": "transfer.prepStarted",
+      "initial": false,
+      "description": {
+        "vi": "Lệnh đóng gói chuyển giao đã ban ra."
+      },
+      "visibleTo": "all"
+    },
+    {
+      "id": "quota.score",
+      "initial": 0,
+      "description": {
+        "vi": "Điểm tuân thủ chỉ tiêu tích lũy (trừu tượng)."
+      },
+      "visibleTo": [
+        "thach",
+        "vu"
+      ]
+    },
+    {
+      "id": "vu.shieldingPhone",
+      "initial": false,
+      "description": {
+        "vi": "Phase 3: Vũ đã quyết định che điện thoại thay vì nộp (A_VU_SHIELD_PHONE)."
+      },
+      "visibleTo": [
+        "vu"
+      ]
+    }
+  ],
+  "playerInitial": {
+    "captive": {
+      "stress": 0,
+      "suspicion": 0
+    },
+    "operator": {
+      "stress": 0,
+      "suspicion": 0
+    }
+  }
+}
